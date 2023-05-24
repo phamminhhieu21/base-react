@@ -1,39 +1,38 @@
-import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
-import { AppDispatch, RootState } from '../index'
-import firebase from 'services/firebase'
-
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
+import { AppDispatch, RootState } from '../index';
+import firebase from 'services/firebase';
+import { useNavigate } from 'react-router-dom';
 interface User {
-  id: string
-  name: string
-  email: string
-  // Thêm các thông tin người dùng khác tùy theo yêu cầu
+  id: string;
+  name: string;
+  email: string;
+  idTokenFirebase: string;
 }
 
 interface AuthState {
-  user: User | null
-  // Thêm các trạng thái xác thực khác tùy theo yêu cầu
+  user: User | null;
 }
 
 const initialState: AuthState = {
   user: null,
-  isAuthenticated: Boolean(localStorage.getItem('user'))
-}
+};
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<User | null>) => {
-      state.user = action.payload
-    }
-    // Thêm các reducers khác liên quan đến xác thực nếu cần
-  }
-})
+      state.user = action.payload;
+    },
+  },
+});
 
-export const { setUser } = authSlice.actions
-
+export const { setUser } = authSlice.actions;
+const nestedData = (data: any) => {
+  return data.idToken;
+};
 export const loginWithGoogle = () => (dispatch: AppDispatch) => {
-  const provider = new firebase.auth.GoogleAuthProvider()
+  const provider = new firebase.auth.GoogleAuthProvider();
   firebase
     .auth()
     .signInWithPopup(provider)
@@ -41,21 +40,25 @@ export const loginWithGoogle = () => (dispatch: AppDispatch) => {
       const user = {
         id: resp.user?.uid || '',
         name: resp.user?.displayName || '',
-        email: resp.user?.email || ''
-        // Các thông tin khác
-      }
-      // Lưu thông tin người dùng vào localStorage
+        email: resp.user?.email || '',
+        photoUrl: resp.user?.photoURL || '',
+        idTokenFirebase: nestedData(resp.credential) || '',
+      };
+      // save to local storage
+      localStorage.setItem('user', JSON.stringify(user));
+      // save to store
+      dispatch(setUser(user));
 
-      // Lưu thông tin người dùng vào Redux
-      dispatch(setUser(user))
-      // window.location.href = '/'
+      // navigate to home
+      const navigate = useNavigate();
+      navigate('/');
     })
     .catch(error => {
-      console.log(error)
-    })
-}
+      console.log(error);
+    });
+};
 
 // selectors
-export const selectUser = () => (state: RootState) => state.auth.user
+export const selectUser = () => (state: RootState) => state.auth.user;
 
-export default authSlice.reducer
+export default authSlice.reducer;
