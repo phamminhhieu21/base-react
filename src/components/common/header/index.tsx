@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Layout, Dropdown } from 'antd';
 import MenuHeader from './Menu';
 import type { MenuProps } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUser } from 'store/reducers/auth.reducer';
+import { logOutWithGoogle } from 'store/reducers/auth.reducer';
 import styled from 'styled-components';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 export interface HeaderProps {
@@ -31,6 +34,8 @@ const Header = ({ setCollapsed, collapsed }: HeaderProps) => {
     }
   `;
   const { Header } = Layout;
+  const user: any = useSelector(selectUser());
+  const dispatch: any = useDispatch();
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log('click left button', e);
   };
@@ -41,7 +46,7 @@ const Header = ({ setCollapsed, collapsed }: HeaderProps) => {
 
   const items: MenuProps['items'] = [
     {
-      label: '1st menu item',
+      label: 'profile',
       key: '1',
       icon: <UserOutlined />,
     },
@@ -49,6 +54,9 @@ const Header = ({ setCollapsed, collapsed }: HeaderProps) => {
       label: 'Log out',
       key: '2',
       icon: <UserOutlined />,
+      onClick: () => {
+        dispatch(logOutWithGoogle());
+      },
     },
   ];
 
@@ -65,7 +73,7 @@ const Header = ({ setCollapsed, collapsed }: HeaderProps) => {
           placement="bottom"
           icon={<UserOutlined />}
         >
-          User
+          {user?.name}
         </Dropdown.Button>
       </Header>
     </Wrapped>

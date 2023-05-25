@@ -1,0 +1,402 @@
+[
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4017952821064",
+    "stockName": "Wabash National Corporation",
+    "stockMarketCap": "$1.26B",
+    "department": "Home",
+    "iBan": "GB58 FBHM 4339 2227 7561 69"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041595085618330",
+    "stockName": "Weatherford International plc",
+    "stockMarketCap": "$4.03B",
+    "department": "Computers",
+    "iBan": "GL06 0477 5176 9426 42"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041371277578496",
+    "stockName": "Methanex Corporation",
+    "stockMarketCap": "$3.63B",
+    "department": "Movies",
+    "iBan": "EE87 5791 6502 5487 0020"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4017959752412080",
+    "stockName": "Kingsway Financial Services, Inc.",
+    "stockMarketCap": "$143.39M",
+    "department": "Tools",
+    "iBan": "BR86 7937 4365 1652 1333 2747 237M 0"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4066394863127",
+    "stockName": "Hudson Pacific Properties, Inc.",
+    "stockMarketCap": "$5.56B",
+    "department": "Electronics",
+    "iBan": "MK32 907D DTFT MGSU U23"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041378766596",
+    "stockName": "OptimumBank Holdings, Inc.",
+    "stockMarketCap": "$2.91M",
+    "department": "Home",
+    "iBan": "NO09 0179 1543 512"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041592665095",
+    "stockName": "Zions Bancorporation",
+    "stockMarketCap": "n/a",
+    "department": "Grocery",
+    "iBan": "LT30 1241 7820 1082 9042"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4702993356839364",
+    "stockName": "Just Energy Group, Inc.",
+    "stockMarketCap": "$771.82M",
+    "department": "Industrial",
+    "iBan": "VG24 AMOP 0672 2279 3480 7329"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4017951481629746",
+    "stockName": "Concord Medical Services Holdings Limited",
+    "stockMarketCap": "$153.07M",
+    "department": "Jewelry",
+    "iBan": "IS02 0338 2639 4248 8077 9227 59"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041591763032",
+    "stockName": "Balchem Corporation",
+    "stockMarketCap": "$2.56B",
+    "department": "Home",
+    "iBan": "MD08 9HZO D7AF USMJ VFRK 8STV"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4795318436310731",
+    "stockName": "Xcel Brands, Inc",
+    "stockMarketCap": "$51.65M",
+    "department": "Computers",
+    "iBan": "PK42 EIMM VFM5 WI0H 2W7I QOEM"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041599468602580",
+    "stockName": "Global Indemnity Limited",
+    "stockMarketCap": "n/a",
+    "department": "Automotive",
+    "iBan": "PT26 7376 0956 6072 0653 6555 8"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041596520726",
+    "stockName": "BroadSoft, Inc.",
+    "stockMarketCap": "$1.28B",
+    "department": "Jewelry",
+    "iBan": "RS85 5770 0643 6110 7570 38"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041372829128319",
+    "stockName": "China Life Insurance Company Limited",
+    "stockMarketCap": "$87.34B",
+    "department": "Industrial",
+    "iBan": "FR39 8571 2860 73YS B25N LZ6M S05"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041377926561643",
+    "stockName": "Steel Partners Holdings LP",
+    "stockMarketCap": "n/a",
+    "department": "Outdoors",
+    "iBan": "SA23 60VT MEJZ CWFG OKGO XYC3"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4493102723122",
+    "stockName": "Ingredion Incorporated",
+    "stockMarketCap": "$8.52B",
+    "department": "Clothing",
+    "iBan": "BA63 3859 1519 2646 7414"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4726650342070",
+    "stockName": "Lombard Medical, Inc.",
+    "stockMarketCap": "$13.04M",
+    "department": "Electronics",
+    "iBan": "KZ91 451C KWPJ QSYL R7RQ"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4017956783799",
+    "stockName": "Capital One Financial Corporation",
+    "stockMarketCap": "n/a",
+    "department": "Books",
+    "iBan": "MK16 460V IQDP YAEG J81"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041592670582",
+    "stockName": "Invesco Mortgage Capital Inc.",
+    "stockMarketCap": "n/a",
+    "department": "Books",
+    "iBan": "CZ42 7647 8388 7359 9807 0515"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041375809865610",
+    "stockName": "BP Prudhoe Bay Royalty Trust",
+    "stockMarketCap": "$445.12M",
+    "department": "Jewelry",
+    "iBan": "MU02 RAEK 2501 0525 6746 2649 429U RE"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041375347320433",
+    "stockName": "Suburban Propane Partners, L.P.",
+    "stockMarketCap": "$1.53B",
+    "department": "Garden",
+    "iBan": "AZ59 QFDP EWNZ UXMK MJYE LCK9 Z5AF"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041591108306326",
+    "stockName": "AcelRx Pharmaceuticals, Inc.",
+    "stockMarketCap": "$108.91M",
+    "department": "Outdoors",
+    "iBan": "FR45 2142 4485 42KW KYLR QNY9 697"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041371615592",
+    "stockName": "PowerShares DWA Utilities Momentum Portfolio",
+    "stockMarketCap": "$87.38M",
+    "department": "Garden",
+    "iBan": "AZ53 KVCI L8KX XVYY X9LR ZH9G 5GJ4"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4546234189296",
+    "stockName": "Canada Goose Holdings Inc.",
+    "stockMarketCap": "$475.23M",
+    "department": "Electronics",
+    "iBan": "FR30 5652 6279 95YL X4XL URQY A14"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041590418164870",
+    "stockName": "On Deck Capital, Inc.",
+    "stockMarketCap": "$303.71M",
+    "department": "Electronics",
+    "iBan": "BE49 9727 1064 6757"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041593528040428",
+    "stockName": "The Bancorp, Inc.",
+    "stockMarketCap": "$400.41M",
+    "department": "Jewelry",
+    "iBan": "LT74 4102 7115 8619 4822"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4329578213882427",
+    "stockName": "iShares S&P Global Timber & Forestry Index Fund",
+    "stockMarketCap": "$264.23M",
+    "department": "Outdoors",
+    "iBan": "MC80 4713 4664 14KI SW3G D7OC 226"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041596125260",
+    "stockName": "Advanced Disposal Services, Inc.",
+    "stockMarketCap": "$2.1B",
+    "department": "Grocery",
+    "iBan": "SE45 3852 0741 6117 3926 8336"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041373471614",
+    "stockName": "Nordic American Tankers Limited",
+    "stockMarketCap": "$611.82M",
+    "department": "Automotive",
+    "iBan": "LV63 ENXU S0WE ASR9 81ES Z"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4017957003254",
+    "stockName": "Newtek Business Services Corp.",
+    "stockMarketCap": "n/a",
+    "department": "Toys",
+    "iBan": "PS55 OGQD IHQD BCFI S68L 9JFW LMGB M"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041597765841315",
+    "stockName": "Atara Biotherapeutics, Inc.",
+    "stockMarketCap": "$371.14M",
+    "department": "Industrial",
+    "iBan": "EE81 1233 6593 9775 6689"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041597685411",
+    "stockName": "Viking Therapeutics, Inc.",
+    "stockMarketCap": "$25.84M",
+    "department": "Games",
+    "iBan": "FI43 8276 4292 7379 56"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041377242425",
+    "stockName": "Facebook, Inc.",
+    "stockMarketCap": "$436.58B",
+    "department": "Baby",
+    "iBan": "LI26 7461 8Q1G 9HYI 7O0Q X"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041595165280746",
+    "stockName": "Electro Scientific Industries, Inc.",
+    "stockMarketCap": "$269.2M",
+    "department": "Sports",
+    "iBan": "BR66 8878 9946 2315 9274 1822 178P D"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041374018463689",
+    "stockName": "OpGen, Inc.",
+    "stockMarketCap": "$16.16M",
+    "department": "Health",
+    "iBan": "FR47 6236 2527 86B5 WAP6 WCCY T62"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4017957891278",
+    "stockName": "Monsanto Company",
+    "stockMarketCap": "$51.73B",
+    "department": "Kids",
+    "iBan": "GT74 BIMK GSYI ZF63 UC9S NBRR J9G6"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4633083719393376",
+    "stockName": "PIMCO Income Strategy Fund",
+    "stockMarketCap": "$298.39M",
+    "department": "Jewelry",
+    "iBan": "LV42 QJJW HSU4 OKXK VOLA O"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041597406263",
+    "stockName": "POSCO",
+    "stockMarketCap": "$19.18B",
+    "department": "Clothing",
+    "iBan": "FR75 3620 7253 53AQ 0DYA XBOT 408"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4652946120361107",
+    "stockName": "China New Borun Corporation",
+    "stockMarketCap": "$34.21M",
+    "department": "Grocery",
+    "iBan": "BA47 1707 2728 6613 5629"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041594789949547",
+    "stockName": "Kearny Financial",
+    "stockMarketCap": "$1.27B",
+    "department": "Books",
+    "iBan": "CR27 9151 7554 2213 4335 0"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4752620093503404",
+    "stockName": "Eiger BioPharmaceuticals, Inc.",
+    "stockMarketCap": "$54.39M",
+    "department": "Kids",
+    "iBan": "KZ36 258C BPGT 7IPI FYIU"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041592831067037",
+    "stockName": "Waste Connections, Inc.",
+    "stockMarketCap": "$26.41B",
+    "department": "Movies",
+    "iBan": "SE33 0614 9416 5842 1809 1283"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041592916278145",
+    "stockName": "Kayne Anderson Acquisition Corp.",
+    "stockMarketCap": "n/a",
+    "department": "Clothing",
+    "iBan": "AD64 5245 4381 ODVL ZXUY WANM"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041378732973972",
+    "stockName": "Luxoft Holding, Inc.",
+    "stockMarketCap": "$2.05B",
+    "department": "Automotive",
+    "iBan": "CH28 8108 4FPA LOAL NLWU 9"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041373869187330",
+    "stockName": "Lsb Industries Inc.",
+    "stockMarketCap": "$295.41M",
+    "department": "Industrial",
+    "iBan": "HU06 8707 1159 3857 8869 7069 0716"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4017956899314",
+    "stockName": "Safe Bulkers, Inc",
+    "stockMarketCap": "$236.5M",
+    "department": "Sports",
+    "iBan": "MD33 0V89 QMBU ETHH SNJI 7B2L"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4318259686030",
+    "stockName": "AXT Inc",
+    "stockMarketCap": "$248.85M",
+    "department": "Health",
+    "iBan": "FR07 1869 2861 55SQ JM3Q DI4Y O02"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041598471739215",
+    "stockName": "Federated Investors, Inc.",
+    "stockMarketCap": "$2.81B",
+    "department": "Kids",
+    "iBan": "AD13 4991 5403 4ENV J7EM Z40H"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4041592210395454",
+    "stockName": "The Navigators Group, Inc.",
+    "stockMarketCap": "$1.6B",
+    "department": "Beauty",
+    "iBan": "GB56 ZNLL 7968 6230 6901 95"
+  },
+  {
+    "creditCardType": "visa",
+    "creditCard#": "4325572728052737",
+    "stockName": "ProShares Ultra Nasdaq Biotechnology",
+    "stockMarketCap": "$343.37M",
+    "department": "Home",
+    "iBan": "PS95 YYYD 0UY6 CEGD AQAZ 9KB9 M2NS U"
+  }
+]

@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
-import { AppDispatch, RootState } from '../index';
 import firebase from 'services/firebase';
-import { useNavigate } from 'react-router-dom';
+// import { AppDispatch, RootState } from '../index';
 interface User {
   id: string;
   name: string;
   email: string;
   idTokenFirebase: string;
+  isAuthenticated: boolean;
 }
 
 interface AuthState {
@@ -31,7 +31,7 @@ export const { setUser } = authSlice.actions;
 const nestedData = (data: any) => {
   return data.idToken;
 };
-export const loginWithGoogle = () => (dispatch: AppDispatch) => {
+export const loginWithGoogle = () => (dispatch: any) => {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase
     .auth()
@@ -43,22 +43,32 @@ export const loginWithGoogle = () => (dispatch: AppDispatch) => {
         email: resp.user?.email || '',
         photoUrl: resp.user?.photoURL || '',
         idTokenFirebase: nestedData(resp.credential) || '',
+        isAuthenticated: true,
       };
-      // save to local storage
-      localStorage.setItem('user', JSON.stringify(user));
       // save to store
       dispatch(setUser(user));
-
       // navigate to home
-      const navigate = useNavigate();
-      navigate('/');
+      window.location.href = '/';
     })
     .catch(error => {
       console.log(error);
     });
 };
-
+export const logOutWithGoogle = () => (dispatch: any) => {
+  firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      // remove from store
+      dispatch(setUser(null));
+      // navigate to login
+      window.location.href = '/login';
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
 // selectors
-export const selectUser = () => (state: RootState) => state.auth.user;
+export const selectUser = () => (state: any) => state.auth.user;
 
 export default authSlice.reducer;
