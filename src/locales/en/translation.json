@@ -1,0 +1,26 @@
+{
+  "alerts": {
+    "accept": "Accept",
+    "basic": "Basic alert",
+    "closable": "Closable alert",
+    "customActions": "Alert with custom actions",
+    "decline": "Decline",
+    "detail": "Detail",
+    "done": "Done",
+    "error": "Error text",
+    "errorDescription": "Error Description",
+    "icons": "Alert with icon",
+    "info": "Info text",
+    "infoDescription": "Additional description and information about copywriting.",
+    "success": "Success Text",
+    "successDescription": "Detailed description and advice about successful copywriting.",
+    "types": "Alert types",
+    "undo": "UNDO",
+    "warning": "Warning text",
+    "warningDescription": "This is a warning notice about copywriting."
+  },
+  "auth": {
+    "signUpSuccessDescription": "Please use your new credentials to log in",
+    "signUpSuccessMessage": "New user was created"
+  }
+}

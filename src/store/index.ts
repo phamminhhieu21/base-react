@@ -5,13 +5,13 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
-const persistConfig = {
+const rootPersistConfig = {
   key: 'root',
   storage: storage,
   stateReconciler: autoMergeLevel2,
 };
 const persisReducer = persistReducer<PersistedState>(
-  persistConfig,
+  rootPersistConfig,
   rootReducer,
 );
 const store = configureStore({
@@ -21,6 +21,6 @@ const store = configureStore({
 });
 const persistor = persistStore(store);
 
-// export type AppDispatch = typeof store.dispatch;
-// export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
 export { store, persistor };
