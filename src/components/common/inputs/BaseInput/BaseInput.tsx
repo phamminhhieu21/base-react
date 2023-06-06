@@ -23,8 +23,7 @@ const InternalInput = React.forwardRef<BaseInputRef, BaseInputProps>(
     </S.Input>
   ),
 );
-
-BaseInput.displayName = 'BaseInput';
+InternalInput.displayName = 'InternalInput';
 export const BaseInput = InternalInput as BaseInputInterface;
 BaseInput.Group = Input.Group;
 BaseInput.Search = Input.Search;

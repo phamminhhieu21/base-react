@@ -3,18 +3,19 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from 'routes/ProtectedRoute';
 import { ConfigProvider } from 'antd';
 import { HelmetProvider } from 'react-helmet-async';
-import { useLanguage } from './hooks/useLanguage';
+import { useTranslation } from 'react-i18next';
 import viVN from 'antd/lib/locale/vi_VN';
 import enUS from 'antd/lib/locale/en_US';
-import { usePWA } from 'hooks/usePWA';
 import routes from 'routes';
+// import { useLanguage } from './hooks/useLanguage';
 
 function App() {
-  const { language } = useLanguage();
-  usePWA();
+  // const { language } = useLanguage();
+  const { i18n } = useTranslation();
+  console.log(i18n.language);
   return (
     <HelmetProvider>
-      <ConfigProvider locale={language === 'en' ? enUS : viVN}>
+      <ConfigProvider locale={i18n.language == 'en' ? enUS : viVN}>
         <BrowserRouter>
           <Routes>
             {routes.map((route, index) => {

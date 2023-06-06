@@ -5,6 +5,7 @@ interface User {
   id: string;
   name: string;
   email: string;
+  photoUrl: string;
   idTokenFirebase: string;
   isAuthenticated: boolean;
 }

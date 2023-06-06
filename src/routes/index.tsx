@@ -6,6 +6,7 @@ import NotFoundPage from 'pages/NotFoundPage';
 import UploadPage from 'pages/UploadPage';
 import ExportPage from 'pages/ExportPage';
 import Login from 'pages/Auth';
+import ProfilePage from 'pages/Profile';
 import { ROUTE_NAMES } from 'constants/path';
 
 const routes: Types.IRoute[] = [
@@ -28,6 +29,11 @@ const routes: Types.IRoute[] = [
   {
     path: ROUTE_NAMES.EXPORT_PAGE,
     component: ExportPage,
+    layout: CommonLayout,
+  },
+  {
+    path: ROUTE_NAMES.PROFILE_PAGE,
+    component: ProfilePage,
     layout: CommonLayout,
   },
   {
