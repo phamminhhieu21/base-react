@@ -4,14 +4,9 @@ import { UserOutlined, LockOutlined, GoogleOutlined } from '@ant-design/icons';
 import { LoginWrapper } from './styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginWithGoogle } from 'store/reducers/auth.reducer';
-import { isTokenFirebaseExpired } from 'utils/checkExpireToken';
-import { useNavigate } from 'react-router-dom';
-import { selectUser } from 'store/reducers/auth.reducer';
 
 // import { AppDispatch } from 'store'
 function Login() {
-  const navigate = useNavigate();
-  const user: any = useSelector(selectUser());
   const dispatch: any = useDispatch();
   const handleLoginWithGoogle = () => {
     dispatch(loginWithGoogle());
@@ -21,20 +16,6 @@ function Login() {
     console.log('Received values:', values);
     // Xử lý logic đăng nhập tại đây
   };
-
-  // const handleRedirectAfterAuthen = () => {
-  //   const checkValidAuth =
-  //     user &&
-  //     isTokenFirebaseExpired(user?.idTokenFirebase) &&
-  //     !user?.isAuthenticated
-  //       ? false
-  //       : true;
-
-  //   if (checkValidAuth) navigate('/');
-  // };
-  // useEffect(() => {
-  //   handleRedirectAfterAuthen();
-  // }, []);
 
   return (
     <LoginWrapper>
