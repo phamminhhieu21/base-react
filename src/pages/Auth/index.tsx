@@ -9,7 +9,8 @@ import { loginWithGoogle } from 'store/reducers/auth.reducer';
 function Login() {
   const dispatch: any = useDispatch();
   const handleLoginWithGoogle = () => {
-    dispatch(loginWithGoogle());
+    // dispatch(loginWithGoogle());
+    window.open(`${process.env.REACT_APP_URL_API}/api/v1/auth/google`, '_self');
   };
 
   const onFinish = (values: any) => {

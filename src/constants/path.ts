@@ -7,4 +7,5 @@ export const ROUTE_NAMES = {
   PROFILE_PAGE: '/user/profile',
   UPLOAD_PAGE: '/media/upload',
   EXPORT_PAGE: '/export',
+  LOGIN_SUCCESS_PAGE: '/login-success/profile/:idGoogle/:tokenLogin',
 };

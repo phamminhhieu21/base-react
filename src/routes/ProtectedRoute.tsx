@@ -6,12 +6,7 @@ import { isTokenFirebaseExpired } from 'utils/checkExpireToken';
 export const ProtectedRoute = ({ children }: any) => {
   //check valid token and is authenticated
   const user: any = useSelector(selectUser());
-  const checkValidAuth =
-    !user &&
-    isTokenFirebaseExpired(user?.idTokenFirebase) &&
-    !user?.isAuthenticated
-      ? false
-      : true;
+  const checkValidAuth = !user && !user?.isLoggedIn ? false : true;
   if (!checkValidAuth) return <Navigate to="/login" />;
   return children;
 };
