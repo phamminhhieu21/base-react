@@ -8,6 +8,7 @@ import ExportPage from 'pages/ExportPage';
 import Login from 'pages/Auth';
 import ProfilePage from 'pages/Profile';
 import LoginSuccessPage from 'pages/LoginSuccess';
+import SignUpPage from 'pages/Auth/SignUp';
 import { ROUTE_NAMES } from 'constants/path';
 
 const routes: Types.IRoute[] = [
@@ -23,19 +24,27 @@ const routes: Types.IRoute[] = [
     layout: AuthLayout,
   },
   {
+    path: ROUTE_NAMES.REGISTER_PAGE,
+    component: SignUpPage,
+    layout: AuthLayout,
+  },
+  {
     path: ROUTE_NAMES.UPLOAD_PAGE,
     component: UploadPage,
     layout: CommonLayout,
+    isProtected: true,
   },
   {
     path: ROUTE_NAMES.EXPORT_PAGE,
     component: ExportPage,
     layout: CommonLayout,
+    isProtected: true,
   },
   {
     path: ROUTE_NAMES.PROFILE_PAGE,
     component: ProfilePage,
     layout: CommonLayout,
+    isProtected: true,
   },
   {
     path: ROUTE_NAMES.LOGIN_SUCCESS_PAGE,

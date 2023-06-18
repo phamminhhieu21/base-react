@@ -1,4 +1,4 @@
-export function isTokenFirebaseExpired(token: string) {
+export function isTokenAuthExpired(token: string | null) {
   if (!token) return true;
   const decodedToken: any = JSON.parse(atob(token?.split('.')[1]));
   if (!decodedToken || !decodedToken.exp) {

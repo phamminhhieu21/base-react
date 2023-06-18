@@ -11,15 +11,15 @@ import { useSelector, useDispatch } from 'react-redux';
 export const ProfileDropdown: React.FC = () => {
   const { isTablet } = useResponsive();
 
-  const user: any = useSelector(selectUser());
+  const User: any = useSelector(selectUser());
   const dispatch: any = useDispatch();
 
-  return user ? (
+  return User ? (
     <BasePopover content={<ProfileOverlay />} trigger="click">
       <S.ProfileDropdownHeader as={BaseRow} gutter={[10, 10]} align="middle">
         <BaseCol>
           <BaseAvatar
-            src={user?.photoUrl}
+            src={User?.data?.avatar}
             alt="User"
             shape="circle"
             size={40}
@@ -27,7 +27,7 @@ export const ProfileDropdown: React.FC = () => {
         </BaseCol>
         {isTablet && (
           <BaseCol>
-            <span>{`${user?.access_token}`}</span>
+            <span>{`${User.data?.name}`}</span>
           </BaseCol>
         )}
       </S.ProfileDropdownHeader>

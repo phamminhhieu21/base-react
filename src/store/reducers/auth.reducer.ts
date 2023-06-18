@@ -1,26 +1,29 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
-import firebase from 'services/firebase';
-// import { AppDispatch, RootState } from '../index';
-import { loginSuccess } from 'api/auth.api';
+import { loginSuccess, login, register as RegisterApi } from 'api/auth.api';
+import { notification } from 'antd';
 interface User {
-  // id: string;
-  // name: string;
-  // email: string;
-  // photoUrl: string;
-  // idTokenFirebase: string;
-  // isAuthenticated: boolean;
   isLoggedIn: boolean;
-  access_token: string;
+  access_token: string | null;
+  refreshToken: string | null;
   data: any;
-  typeLogin: string;
+  typeLogin: string | null;
 }
 
 interface AuthState {
-  user: User | null;
+  User: User | null;
+  isLoading: boolean;
 }
 
 const initialState: AuthState = {
-  user: null,
+  isLoading: false,
+  User: {
+    isLoggedIn: false,
+    access_token: null,
+    refreshToken: null,
+    data: null,
+    typeLogin: null,
+  },
 };
 
 const authSlice = createSlice({
@@ -28,67 +31,116 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<User | null>) => {
-      state.user = action.payload;
+      state.User = action.payload;
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
     },
   },
 });
 
-export const { setUser } = authSlice.actions;
-const nestedData = (data: any) => {
-  return data.idToken;
-};
-export const loginWithGoogle =
-  (userId: string | undefined, tokenLogin: string | undefined) =>
-  async (dispatch: any) => {
-    // const provider = new firebase.auth.GoogleAuthProvider();
-    // firebase
-    //   .auth()
-    //   .signInWithPopup(provider)
-    //   .then(resp => {
-    //     const user = {
-    //       id: resp.user?.uid || '',
-    //       name: resp.user?.displayName || '',
-    //       email: resp.user?.email || '',
-    //       photoUrl: resp.user?.photoURL || '',
-    //       idTokenFirebase: nestedData(resp.credential) || '',
-    //       isAuthenticated: true,
-    //     };
-    //     // save to store
-    //     dispatch(setUser(user));
-    //     // navigate to home
-    //     window.location.href = '/';
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
-    const resp: any = await loginSuccess({
-      idGoogle: userId,
-      tokenLogin,
+export const { setUser, setLoading } = authSlice.actions;
+export const register = (payload: any) => async (dispatch: any) => {
+  try {
+    dispatch(setLoading(true));
+    const resp: any = await RegisterApi({
+      ...payload,
     });
-    console.log(resp);
-    const payload = {
-      isLoggedIn: resp.access_token ? true : false,
-      access_token: resp.access_token,
-      data: resp.data,
-      typeLogin: resp.typeLogin,
-    };
-    dispatch(setUser(payload));
+    if (resp && resp.code !== 0) {
+      dispatch(setLoading(false));
+      notification.error({
+        message: 'Đăng ký thất bại',
+        description: resp.message,
+      });
+    }
+    if (resp && resp.code === 0 && resp.access_token) {
+      const payload = {
+        isLoggedIn: false,
+        access_token: resp.access_token,
+        data: {
+          name: resp.name,
+        },
+        typeLogin: null,
+        refreshToken: null,
+      };
+      dispatch(setUser(payload));
+      dispatch(setLoading(false));
+      notification.success({
+        message: 'Đăng ký thành công',
+        description: resp.message,
+      });
+      if (resp && resp.access_token && resp.typeLogin == 'normal') {
+        window.location.href = '/login';
+      }
+    }
+  } catch (error: any) {
+    dispatch(setLoading(false));
+    notification.error({
+      message: 'Đăng ký thất bại',
+      description: error.message,
+    });
+  }
+};
+export const logIn =
+  (
+    userId?: string | undefined,
+    tokenLogin?: string | undefined,
+    type?: string,
+    email?: string | undefined,
+    password?: string | undefined,
+  ) =>
+  async (dispatch: any) => {
+    try {
+      dispatch(setLoading(true));
+      const resp: any =
+        type && type == 'google' && userId && tokenLogin
+          ? await loginSuccess({
+              idGoogle: userId,
+              tokenLogin,
+            })
+          : await login({
+              email,
+              password,
+            });
+
+      if (resp && resp.code !== 0) {
+        dispatch(setLoading(false));
+        notification.error({
+          message: 'Đăng nhập thất bại',
+          description: resp.message,
+        });
+      }
+      if (resp && resp.code === 0 && resp.access_token) {
+        const payload = {
+          isLoggedIn: resp.access_token ? true : false,
+          access_token: resp.access_token,
+          data: resp.data,
+          typeLogin: resp.typeLogin,
+          refreshToken: resp.typeLogin == 'normal' ? resp.refreshToken : null,
+        };
+        dispatch(setUser(payload));
+        dispatch(setLoading(false));
+        notification.success({
+          message: 'Đăng nhập thành công',
+          description: resp.message,
+        });
+        if (resp && resp.access_token && resp.typeLogin == 'normal') {
+          window.location.href = '/';
+        }
+      }
+    } catch (error: any) {
+      dispatch(setLoading(false));
+      notification.error({
+        message: 'Đăng nhập thất bại',
+        description: error.message,
+      });
+    }
   };
-export const logOutWithGoogle = () => (dispatch: any) => {
-  // firebase
-  //   .auth()
-  //   .signOut()
-  //   .then(() => {
-  //     // remove from store
-  //     dispatch(setUser(null));
-  //     // navigate to login
-  //     window.location.href = '/login';
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //   });
+export const logOut = () => (dispatch: any) => {
+  dispatch(setUser(null));
+  window.location.href = '/login';
 };
 // selectors
-export const selectUser = () => (state: any) => state.auth.user;
+export const selectUser = () => (state: any) => state.auth.User;
 
 export default authSlice.reducer;

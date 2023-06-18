@@ -1,53 +1,96 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Form, Input } from 'antd';
-import { UserOutlined, LockOutlined, GoogleOutlined } from '@ant-design/icons';
+/* eslint-disable react/no-unescaped-entities */
+import React from 'react';
+import { Button, Form, Input, Checkbox } from 'antd';
+import {
+  UserOutlined,
+  LockOutlined,
+  GoogleOutlined,
+  LoginOutlined,
+} from '@ant-design/icons';
 import { LoginWrapper } from './styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginWithGoogle } from 'store/reducers/auth.reducer';
+import { logIn } from 'store/reducers/auth.reducer';
 
 // import { AppDispatch } from 'store'
 function Login() {
   const dispatch: any = useDispatch();
+  const isLoading = useSelector((state: any) => state.auth.isLoading);
   const handleLoginWithGoogle = () => {
-    // dispatch(loginWithGoogle());
     window.open(`${process.env.REACT_APP_URL_API}/api/v1/auth/google`, '_self');
   };
 
-  const onFinish = (values: any) => {
-    console.log('Received values:', values);
-    // Xử lý logic đăng nhập tại đây
+  const onFinish = (values: { email: string; password: string }) => {
+    dispatch(
+      logIn(undefined, undefined, 'normal', values.email, values.password),
+    );
   };
 
   return (
     <LoginWrapper>
-      <Form name="login-form" onFinish={onFinish}>
+      <Form
+        name="normal_login"
+        className="login-form"
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+      >
         <Form.Item
-          name="username"
-          rules={[{ required: true, message: 'Vui lòng nhập tên đăng nhập!' }]}
+          name="email"
+          rules={[{ required: true, message: 'Please input your Email!' }]}
         >
-          <Input prefix={<UserOutlined />} placeholder="Tên đăng nhập" />
+          <Input
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Email"
+          />
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
+          rules={[{ required: true, message: 'Please input your Password!' }]}
         >
-          <Input.Password prefix={<LockOutlined />} placeholder="Mật khẩu" />
+          <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Password"
+          />
         </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" block>
-            Đăng nhập
-          </Button>
+        <Form.Item className="mb-2">
+          <Form.Item name="remember" valuePropName="checked" noStyle>
+            <Checkbox>Remember me</Checkbox>
+          </Form.Item>
+
+          <a className="login-form-forgot" href="">
+            Forgot password
+          </a>
         </Form.Item>
-        <Form.Item>
-          <Button
-            type="default"
-            icon={<GoogleOutlined />}
-            onClick={handleLoginWithGoogle}
-            block
-          >
-            Đăng nhập bằng Google
-          </Button>
-        </Form.Item>
+        <div className="flex justify-between items-center flex-col w-full p-3">
+          <div className="">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button w-40"
+              icon={<LoginOutlined />}
+              loading={isLoading}
+            >
+              Log in
+            </Button>
+          </div>
+          <div>
+            <Button
+              type="default"
+              className="login-form-button m-3 shadow rounded"
+              icon={<GoogleOutlined />}
+              onClick={handleLoginWithGoogle}
+            >
+              Log in with google
+            </Button>
+          </div>
+
+          <div className="mb-2">
+            <p className="text-[15px]">
+              If you don't have an account, please{' '}
+              <a href="/register">Sign up</a>{' '}
+            </p>
+          </div>
+        </div>
       </Form>
     </LoginWrapper>
   );

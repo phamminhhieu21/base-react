@@ -5,7 +5,7 @@ import { BASE_COLORS } from './constants';
 import { darkColorsTheme, antDarkColorsTheme } from './dark/darkTheme';
 import { lightColorsTheme } from './light/lightTheme';
 
-export const themeObject = {
+export const themeObject: any = {
   light: lightColorsTheme,
   dark: darkColorsTheme,
 };

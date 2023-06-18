@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 export const LoginWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -11,4 +11,4 @@ export const LoginWrapper = styled.div`
   form {
     width: 100%;
   }
-`
+`;

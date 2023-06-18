@@ -26,8 +26,8 @@ export interface NewPasswordData {
 }
 
 export interface LoginRequest {
-  email: string;
-  password: string;
+  email: string | undefined;
+  password: string | undefined;
 }
 
 export interface LoginResponse {
@@ -40,20 +40,46 @@ export interface LoginSuccessRequest {
 }
 
 export interface LoginSuccessResponse {
+  code: number;
+  message: string;
   access_token: string;
+  refreshToken?: string;
+  typeLogin: string;
+  data: {
+    id: string;
+    idGoogle?: string;
+    email: string;
+    name: string;
+    avatar: string;
+  };
 }
-
-export const login = (loginPayload: LoginRequest): Promise<LoginResponse> =>
+export interface RegisterRequest {
+  email: string;
+  password: string;
+  name: string;
+  gender: string;
+  phone_number: string;
+  date_of_birth: string;
+}
+export const register = (registerPayload: RegisterRequest): Promise<any> =>
   httpApi
-    .post<LoginResponse>('login', { ...loginPayload })
-    .then(({ data }) => data);
+    .post<any>('/api/v1/auth/register', {
+      ...registerPayload,
+    })
+    .then(resp => resp.data);
+export const login = (
+  loginPayload: LoginRequest,
+): Promise<LoginSuccessResponse> =>
+  httpApi
+    .post<LoginSuccessResponse>('/api/v1/auth/login', { ...loginPayload })
+    .then(resp => resp.data);
 
 export const loginSuccess = (loginPayload: LoginSuccessRequest): Promise<any> =>
   httpApi
-    .post<any>('/api/v1/login-success/verify-profile', {
+    .post<any>('/api/v1/auth/login-success/verify-profile', {
       ...loginPayload,
     })
-    .then(({ data }) => data);
+    .then(resp => resp.data);
 
 export const signUp = (signUpData: SignUpRequest): Promise<undefined> =>
   httpApi.post<undefined>('signUp', { ...signUpData }).then(({ data }) => data);
