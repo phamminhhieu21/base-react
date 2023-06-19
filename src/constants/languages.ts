@@ -1,4 +1,4 @@
-import { LanguageType } from '@app/interfaces/interfaces';
+import { LanguageType } from 'interfaces/interfaces';
 
 interface Language {
   id: number;

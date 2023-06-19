@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Checkbox } from 'antd';
 import {
   UserOutlined,
@@ -9,11 +9,19 @@ import {
 } from '@ant-design/icons';
 import { LoginWrapper } from './styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { logIn } from 'store/reducers/auth.reducer';
+import { logIn, selectUser } from 'store/reducers/auth.reducer';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 // import { AppDispatch } from 'store'
 function Login() {
   const dispatch: any = useDispatch();
+  const navigate = useNavigate();
+  const User = useSelector(selectUser());
+  const [initialValues, setInitialValues] = useState({
+    remember: true,
+    email: User?.data?.email,
+  });
+
   const isLoading = useSelector((state: any) => state.auth.isLoading);
   const handleLoginWithGoogle = () => {
     window.open(`${process.env.REACT_APP_URL_API}/api/v1/auth/google`, '_self');
@@ -30,7 +38,7 @@ function Login() {
       <Form
         name="normal_login"
         className="login-form"
-        initialValues={{ remember: true }}
+        initialValues={initialValues}
         onFinish={onFinish}
       >
         <Form.Item
@@ -85,10 +93,15 @@ function Login() {
           </div>
 
           <div className="mb-2">
-            <p className="text-[15px]">
+            <div className="text-[15px]">
               If you don't have an account, please{' '}
-              <a href="/register">Sign up</a>{' '}
-            </p>
+              <p
+                className="text-[15px] text-blue-500 cursor-pointer"
+                onClick={() => navigate('/register')}
+              >
+                Sign Up
+              </p>
+            </div>
           </div>
         </div>
       </Form>

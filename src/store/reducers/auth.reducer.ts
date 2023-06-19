@@ -58,7 +58,7 @@ export const register = (payload: any) => async (dispatch: any) => {
         isLoggedIn: false,
         access_token: resp.access_token,
         data: {
-          name: resp.name,
+          email: resp.email,
         },
         typeLogin: null,
         refreshToken: null,
@@ -69,7 +69,7 @@ export const register = (payload: any) => async (dispatch: any) => {
         message: 'Đăng ký thành công',
         description: resp.message,
       });
-      if (resp && resp.access_token && resp.typeLogin == 'normal') {
+      if (resp && resp.access_token) {
         window.location.href = '/login';
       }
     }

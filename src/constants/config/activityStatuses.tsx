@@ -1,6 +1,6 @@
 import React from 'react';
 import { DollarOutlined, PlusOutlined, ReadOutlined } from '@ant-design/icons';
-import { ActivityStatusType } from '@app/interfaces/interfaces';
+import { ActivityStatusType } from 'interfaces/interfaces';
 
 interface ActivityStatusItem {
   name: ActivityStatusType;

@@ -1,19 +1,7 @@
-import type { CascaderProps } from 'antd';
-import {
-  AutoComplete,
-  Button,
-  Cascader,
-  Checkbox,
-  Col,
-  Form,
-  Input,
-  InputNumber,
-  Row,
-  Select,
-  DatePicker,
-} from 'antd';
+import { Button, Checkbox, Form, Input, Select, DatePicker } from 'antd';
 import React, { useState } from 'react';
-
+import { register } from 'store/reducers/auth.reducer';
+import { useDispatch, useSelector } from 'react-redux';
 const { Option } = Select;
 
 const formItemLayout = {
@@ -41,16 +29,27 @@ const tailFormItemLayout = {
 };
 
 const SignUpPage: React.FC = () => {
+  const dispatch: any = useDispatch();
+  const isLoading = useSelector((state: any) => state.auth.isLoading);
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
+    dispatch(
+      register({
+        email: values.email,
+        password: values.password,
+        name: values.name,
+        date_of_birth: values.date_of_birth,
+        phone_number: values.phone_number,
+        gender: values.gender,
+      }),
+    );
   };
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
       <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
+        <Option value="86">+84</Option>
         <Option value="87">+87</Option>
       </Select>
     </Form.Item>
@@ -146,7 +145,7 @@ const SignUpPage: React.FC = () => {
           {
             required: true,
             message: 'Please input your Date of Birth!',
-            whitespace: true,
+            // whitespace: true,
           },
         ]}
       >
@@ -155,7 +154,15 @@ const SignUpPage: React.FC = () => {
       <Form.Item
         name="phone_number"
         label="Phone Number"
-        rules={[{ required: true, message: 'Please input your phone number!' }]}
+        rules={[
+          {
+            // required: true,
+            message: 'Please input your phone is number!',
+            pattern: new RegExp(/^[0-9\b]+$/),
+            min: 10,
+            max: 11,
+          },
+        ]}
       >
         <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
       </Form.Item>
@@ -188,7 +195,7 @@ const SignUpPage: React.FC = () => {
         </Checkbox>
       </Form.Item>
       <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={isLoading}>
           Register
         </Button>
       </Form.Item>

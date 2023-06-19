@@ -91,13 +91,6 @@ export const resetPassword = (
     .post<undefined>('forgotPassword', { ...resetPasswordPayload })
     .then(({ data }) => data);
 
-export const verifySecurityCode = (
-  securityCodePayload: SecurityCodePayload,
-): Promise<undefined> =>
-  httpApi
-    .post<undefined>('verifySecurityCode', { ...securityCodePayload })
-    .then(({ data }) => data);
-
 export const setNewPassword = (
   newPasswordData: NewPasswordData,
 ): Promise<undefined> =>
