@@ -12,14 +12,20 @@ import {
 import React, { useEffect, useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUser } from 'store/reducers/auth.reducer';
 import {
   getProfileUserAction,
   selectProfileUser,
+  updateProfileUserAction,
 } from 'store/reducers/user.reducer';
 import { useParams } from 'react-router-dom';
 
-const SubmitButton = ({ form }: { form: FormInstance }) => {
+const SubmitButton = ({
+  form,
+  isLoading,
+}: {
+  form: FormInstance;
+  isLoading?: boolean;
+}) => {
   const [submittable, setSubmittable] = useState(false);
 
   // Watch all values
@@ -37,7 +43,12 @@ const SubmitButton = ({ form }: { form: FormInstance }) => {
   }, [values]);
 
   return (
-    <Button type="primary" htmlType="submit" disabled={!submittable}>
+    <Button
+      type="primary"
+      htmlType="submit"
+      disabled={!submittable}
+      loading={isLoading}
+    >
       Submit
     </Button>
   );
@@ -47,11 +58,10 @@ const ProfilePage = () => {
   const [form] = Form.useForm();
   const dispatch: any = useDispatch();
   const { idUser } = useParams();
-  const ProfileUser = useSelector(selectProfileUser());
   const [avatarFile, setAvatarFile] = useState(null);
   const { Option } = Select;
-  const User = useSelector(selectUser());
-  console.log(User);
+  const ProfileUser = useSelector(selectProfileUser());
+  console.log('User store', ProfileUser);
   const initialValues = {
     name: ProfileUser?.data?.name,
     email: ProfileUser?.data?.email,
@@ -100,6 +110,16 @@ const ProfilePage = () => {
       dispatch(getProfileUserAction(idUser));
     }
   }, [idUser]);
+  const handleUpdateProfile = ({ prefix, ...params }: any) => {
+    const values = params;
+    const data = {
+      id: Number(idUser),
+      avatar: avatarFile,
+      ...values,
+    };
+    console.log('dataUpdate', data);
+    dispatch(updateProfileUserAction(data));
+  };
   return (
     <Form
       form={form}
@@ -107,6 +127,7 @@ const ProfilePage = () => {
       layout="vertical"
       autoComplete="off"
       initialValues={initialValues}
+      onFinish={handleUpdateProfile}
     >
       <Form.Item
         name="name"
@@ -118,7 +139,13 @@ const ProfilePage = () => {
       <Form.Item
         name="email"
         label="Email"
-        rules={[{ required: true, message: 'Please input your email!' }]}
+        rules={[
+          {
+            required: true,
+            message: 'Please input your email!',
+            type: 'email',
+          },
+        ]}
       >
         <Input />
       </Form.Item>
@@ -133,7 +160,7 @@ const ProfilePage = () => {
           },
         ]}
       >
-        <DatePicker />
+        <DatePicker defaultValue={ProfileUser?.data?.date_of_birth} />
       </Form.Item>
       <Form.Item
         name="phone_number"
@@ -162,8 +189,8 @@ const ProfilePage = () => {
         </Select>
       </Form.Item>
       <Form.Item
-        name="upload"
-        label="Upload"
+        name="avatar"
+        label="Avatar"
         valuePropName="fileList"
         getValueFromEvent={normFile}
         // extra="longgggggggggggggggggggggggggggggggggg"
@@ -181,7 +208,7 @@ const ProfilePage = () => {
       </Form.Item>
       <Form.Item>
         <Space>
-          <SubmitButton form={form} />
+          <SubmitButton form={form} isLoading={ProfileUser?.isLoading} />
           <Button htmlType="reset">Reset</Button>
         </Space>
       </Form.Item>
