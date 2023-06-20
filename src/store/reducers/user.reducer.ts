@@ -2,7 +2,7 @@
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { getUserCurrentApi, updateUserCurrentApi } from 'api/user.api';
 import { notification } from 'antd';
-import moment from 'moment';
+import dayjs from 'dayjs';
 interface userState {
   isLoading: boolean;
   data: {
@@ -62,7 +62,8 @@ const userSlice = createSlice({
   },
 });
 
-export const { setProfileUser, setLoading } = userSlice.actions;
+export const { setProfileUser, setLoading, updateProfileUser } =
+  userSlice.actions;
 export const getProfileUserAction =
   (payload: string) => async (dispatch: any) => {
     try {
@@ -73,9 +74,7 @@ export const getProfileUserAction =
         dispatch(
           setProfileUser({
             ...resp.userData,
-            date_of_birth: moment(resp?.userData?.date_of_birth).format(
-              'YYYY/MM/DD',
-            ),
+            // date_of_birth: dayjs(resp?.userData?.date_of_birth),
           }),
         );
       }
@@ -96,24 +95,23 @@ export const updateProfileUserAction =
       if (resp && resp.err == 0) {
         dispatch(setLoading(false));
         notification.success({
-          message: 'Update success',
+          message: resp.message,
         });
         dispatch(
-          setProfileUser({
+          updateProfileUser({
             ...resp.dataUpdate,
           }),
         );
       } else {
         dispatch(setLoading(false));
         notification.error({
-          message: 'Update fail',
-          description: resp.message,
+          message: resp.message,
         });
       }
     } catch (error: any) {
       dispatch(setLoading(false));
       notification.error({
-        message: 'Update fail',
+        message: 'Fail',
         description: error.message,
       });
     }

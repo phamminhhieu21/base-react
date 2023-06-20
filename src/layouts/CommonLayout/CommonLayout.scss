@@ -1,5 +1,9 @@
 #common-layout {
+  background-color: #cebce24f;
   .ant-layout-content {
     min-height: calc(100vh - 235px) !important;
+    #container-content {
+      border-radius: 15px;
+    }
   }
 }

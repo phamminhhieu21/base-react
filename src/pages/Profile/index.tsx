@@ -8,6 +8,7 @@ import {
   Select,
   Upload,
   message,
+  Spin,
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
@@ -18,7 +19,7 @@ import {
   updateProfileUserAction,
 } from 'store/reducers/user.reducer';
 import { useParams } from 'react-router-dom';
-
+import dayjs from 'dayjs';
 const SubmitButton = ({
   form,
   isLoading,
@@ -55,20 +56,25 @@ const SubmitButton = ({
 };
 
 const ProfilePage = () => {
-  const [form] = Form.useForm();
-  const dispatch: any = useDispatch();
   const { idUser } = useParams();
-  const [avatarFile, setAvatarFile] = useState(null);
+  const dispatch: any = useDispatch();
+  const [form] = Form.useForm();
   const { Option } = Select;
+
   const ProfileUser = useSelector(selectProfileUser());
-  console.log('User store', ProfileUser);
-  const initialValues = {
-    name: ProfileUser?.data?.name,
-    email: ProfileUser?.data?.email,
-    date_of_birth: ProfileUser?.data?.date_of_birth,
-    phone_number: ProfileUser?.data?.phone_number,
-    gender: ProfileUser?.data?.gender,
-  };
+  const [avatarFile, setAvatarFile] = useState<any>(null);
+  console.log('avatarFile', avatarFile);
+  useEffect(() => {
+    if (ProfileUser?.data) {
+      form.setFieldsValue({
+        name: ProfileUser?.data?.name,
+        email: ProfileUser?.data?.email,
+        date_of_birth: dayjs(ProfileUser?.data?.date_of_birth),
+        phone_number: ProfileUser?.data?.phone_number,
+        gender: ProfileUser?.data?.gender,
+      });
+    }
+  }, [ProfileUser]);
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -78,8 +84,9 @@ const ProfilePage = () => {
       </Select>
     </Form.Item>
   );
+
   const beforeUpload = (file: any) => {
-    // Kiểm tra kiểu file và kích thước ở đây (nếu cần)
+    console.log('beforeUpload', file);
     const isImage = file.type.startsWith('image/');
     if (!isImage) {
       message.error('Only image files are allowed!');
@@ -98,6 +105,7 @@ const ProfilePage = () => {
     // Xóa file khỏi state avatarFile khi người dùng xóa avatar
     setAvatarFile(null);
   };
+
   const normFile = (e: any) => {
     console.log('Upload event:', e);
     if (Array.isArray(e)) {
@@ -105,114 +113,142 @@ const ProfilePage = () => {
     }
     return e?.fileList;
   };
+
   useEffect(() => {
     if (idUser) {
       dispatch(getProfileUserAction(idUser));
     }
   }, [idUser]);
+
   const handleUpdateProfile = ({ prefix, ...params }: any) => {
+    console.log('form', form.getFieldsValue());
+    console.log('avt', avatarFile);
     const values = params;
     const data = {
       id: Number(idUser),
-      avatar: avatarFile,
+      avatar: avatarFile && avatarFile.file,
       ...values,
     };
     console.log('dataUpdate', data);
     dispatch(updateProfileUserAction(data));
   };
+
+  const handleImageChange = (info: any) => {
+    console.log('info', info);
+    if (info.file.type.startsWith('image/')) {
+      setAvatarFile(info.file);
+    }
+  };
+
   return (
-    <Form
-      form={form}
-      name="validateOnly"
-      layout="vertical"
-      autoComplete="off"
-      initialValues={initialValues}
-      onFinish={handleUpdateProfile}
-    >
-      <Form.Item
-        name="name"
-        label="Name"
-        rules={[{ required: true, message: 'Please input your name!' }]}
+    <Spin spinning={ProfileUser?.isLoading}>
+      <Form
+        form={form}
+        name="validateOnly"
+        layout="vertical"
+        autoComplete="off"
+        // initialValues={initialValues}
+        onFinish={handleUpdateProfile}
       >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="email"
-        label="Email"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your email!',
-            type: 'email',
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="date_of_birth"
-        label="Date of Birth"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your Date of Birth!',
-            // whitespace: true,
-          },
-        ]}
-      >
-        <DatePicker defaultValue={ProfileUser?.data?.date_of_birth} />
-      </Form.Item>
-      <Form.Item
-        name="phone_number"
-        label="Phone Number"
-        rules={[
-          {
-            // required: true,
-            message: 'Input your phone is number!',
-            pattern: new RegExp(/^[0-9\b]+$/),
-            min: 10,
-            max: 11,
-          },
-        ]}
-      >
-        <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
-      </Form.Item>
-      <Form.Item
-        name="gender"
-        label="Gender"
-        rules={[{ required: true, message: 'Please select gender!' }]}
-      >
-        <Select placeholder="select your gender">
-          <Option value="male">Male</Option>
-          <Option value="female">Female</Option>
-          <Option value="other">Other</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item
-        name="avatar"
-        label="Avatar"
-        valuePropName="fileList"
-        getValueFromEvent={normFile}
-        // extra="longgggggggggggggggggggggggggggggggggg"
-      >
-        <Upload
-          name="avt"
-          accept="image/*"
-          listType="picture"
-          beforeUpload={beforeUpload}
-          onRemove={onRemove}
-          fileList={avatarFile ? [avatarFile] : []}
+        <Form.Item
+          name="name"
+          label="Name"
+          rules={[{ required: true, message: 'Please input your name!' }]}
         >
-          <Button icon={<UploadOutlined />}>Change Avatar</Button>
-        </Upload>
-      </Form.Item>
-      <Form.Item>
-        <Space>
-          <SubmitButton form={form} isLoading={ProfileUser?.isLoading} />
-          <Button htmlType="reset">Reset</Button>
-        </Space>
-      </Form.Item>
-    </Form>
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="email"
+          label="Email"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your email!',
+              type: 'email',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="date_of_birth"
+          label="Date of Birth"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your Date of Birth!',
+              // whitespace: true,
+            },
+          ]}
+        >
+          <DatePicker format={'YYYY-MM-DD'} />
+        </Form.Item>
+        <Form.Item
+          name="phone_number"
+          label="Phone Number"
+          rules={[
+            {
+              // required: true,
+              message: 'Input your phone is number!',
+              pattern: new RegExp(/^[0-9\b]+$/),
+              min: 10,
+              max: 11,
+            },
+          ]}
+        >
+          <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+        </Form.Item>
+        <Form.Item
+          name="gender"
+          label="Gender"
+          rules={[{ required: true, message: 'Please select gender!' }]}
+        >
+          <Select placeholder="select your gender">
+            <Option value="male">Male</Option>
+            <Option value="female">Female</Option>
+            <Option value="other">Other</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          name="avatar"
+          label="Avatar"
+          // valuePropName="fileList"
+          // getValueFromEvent={normFile}
+        >
+          <Upload
+            name="upload"
+            accept="image/*"
+            beforeUpload={beforeUpload}
+            onRemove={onRemove}
+            showUploadList={false}
+            // onChange={handleImageChange}
+            // listType="picture"
+            // fileList={avatarFile ? [avatarFile] : []}
+          >
+            {avatarFile ? (
+              <img
+                src={URL.createObjectURL(avatarFile)}
+                alt="Uploaded Image"
+                style={{ maxWidth: '30%', maxHeight: '50%' }}
+              />
+            ) : (
+              <div>
+                <div className="upload-icon">
+                  <UploadOutlined />
+                </div>
+                <div className="upload-text">Click to Upload</div>
+              </div>
+            )}
+          </Upload>
+        </Form.Item>
+        <Form.Item>
+          <Space>
+            <SubmitButton form={form} isLoading={ProfileUser?.isLoading} />
+            <Button htmlType="reset">Reset</Button>
+          </Space>
+        </Form.Item>
+      </Form>
+    </Spin>
   );
 };
 

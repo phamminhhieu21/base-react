@@ -25,9 +25,7 @@ export const DropdownCollapse: any = styled(BaseCollapse)`
   & > .ant-collapse-item > .ant-collapse-header {
     font-weight: 600;
     font-size: 0.875rem;
-
     color: var(--primary-color);
-
     @media only screen and (${media.md}) {
       font-size: 1rem;
     }
@@ -35,7 +33,6 @@ export const DropdownCollapse: any = styled(BaseCollapse)`
 
   & > .ant-collapse-item-disabled > .ant-collapse-header {
     cursor: default;
-
     & > span[role='img'] {
       display: none;
     }
