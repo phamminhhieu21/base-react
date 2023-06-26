@@ -1,6 +1,6 @@
 import { Button, Checkbox, Form, Input, Select, DatePicker } from 'antd';
 import React, { useState } from 'react';
-import { register } from 'store/reducers/auth.reducer';
+import { register, registerWithConfirmMail } from 'store/reducers/auth.reducer';
 import { useDispatch, useSelector } from 'react-redux';
 const { Option } = Select;
 
@@ -35,7 +35,15 @@ const SignUpPage: React.FC = () => {
 
   const onFinish = (values: any) => {
     dispatch(
-      register({
+      // register({
+      //   email: values.email,
+      //   password: values.password,
+      //   name: values.name,
+      //   date_of_birth: values.date_of_birth,
+      //   phone_number: values.phone_number,
+      //   gender: values.gender,
+      // }),
+      registerWithConfirmMail({
         email: values.email,
         password: values.password,
         name: values.name,

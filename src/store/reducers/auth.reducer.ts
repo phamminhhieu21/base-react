@@ -1,9 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
-import { loginSuccess, login, register as RegisterApi } from 'api/auth.api';
+import {
+  loginSuccess,
+  login,
+  register as RegisterApi,
+  registerWithConfirmMailApi,
+  verifyRegisterTokenApi,
+} from 'api/auth.api';
 import { notification } from 'antd';
 interface User {
-  isLoggedIn: boolean;
+  isLoggedIn: boolean | null;
   access_token: string | null;
   refreshToken: string | null;
   data: any;
@@ -11,7 +17,7 @@ interface User {
 }
 
 interface AuthState {
-  User: User | null;
+  User: User | any;
   isLoading: boolean;
 }
 
@@ -33,13 +39,81 @@ const authSlice = createSlice({
     setUser: (state, action: PayloadAction<User | null>) => {
       state.User = action.payload;
     },
+    setDataRegister: (state, action: PayloadAction<any>) => {
+      state.User = {
+        ...state.User,
+        data: action.payload,
+      };
+    },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
   },
 });
 
-export const { setUser, setLoading } = authSlice.actions;
+export const { setUser, setLoading, setDataRegister } = authSlice.actions;
+
+export const registerWithConfirmMail =
+  (payload: any) => async (dispatch: any) => {
+    try {
+      dispatch(setLoading(true));
+      const resp = await registerWithConfirmMailApi({
+        ...payload,
+      });
+      if (resp && resp.code !== 0) {
+        dispatch(setLoading(false));
+        notification.error({
+          message: 'Failed',
+          description: resp.message,
+        });
+      } else {
+        dispatch(setLoading(false));
+        notification.success({
+          message: 'Successfull',
+          description: resp.message,
+        });
+        window.location.href = '/register/inprogress';
+      }
+    } catch (error: any) {
+      dispatch(setLoading(false));
+      notification.error({
+        message: 'Failed',
+        description: error.message,
+      });
+    }
+  };
+
+export const verifyRegisterToken = (token: string) => async (dispatch: any) => {
+  try {
+    dispatch(setLoading(true));
+    const resp = await verifyRegisterTokenApi(token);
+    if (resp && resp.code !== 0) {
+      dispatch(setLoading(false));
+      notification.error({
+        message: 'Failed',
+        description: resp.message,
+      });
+    } else {
+      dispatch(setLoading(false));
+      const payload = {
+        email: resp.dataRegister.email,
+        name: resp.dataRegister.name,
+      };
+      dispatch(setDataRegister(payload));
+      notification.success({
+        message: 'Successfull',
+        description: resp.message,
+      });
+    }
+  } catch (error: any) {
+    dispatch(setLoading(false));
+    notification.error({
+      message: 'Failed',
+      description: error.message,
+    });
+  }
+};
+
 export const register = (payload: any) => async (dispatch: any) => {
   try {
     dispatch(setLoading(true));

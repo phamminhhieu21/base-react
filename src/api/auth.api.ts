@@ -58,8 +58,16 @@ export interface RegisterRequest {
   password: string;
   name: string;
   gender: string;
-  phone_number: string;
+  phone_number?: string;
   date_of_birth: string;
+}
+export interface VerifyRegisterTokenResponse {
+  code: number;
+  message: string;
+  dataRegister: {
+    email: string;
+    name: string;
+  };
 }
 export const register = (registerPayload: RegisterRequest): Promise<any> =>
   httpApi
@@ -67,6 +75,25 @@ export const register = (registerPayload: RegisterRequest): Promise<any> =>
       ...registerPayload,
     })
     .then(resp => resp.data);
+
+export const registerWithConfirmMailApi = (
+  registerPayload: RegisterRequest,
+): Promise<any> =>
+  httpApi
+    .post<any>('/api/v1/auth/register', {
+      ...registerPayload,
+    })
+    .then(resp => resp.data);
+
+export const verifyRegisterTokenApi = (
+  token: string,
+): Promise<VerifyRegisterTokenResponse> =>
+  httpApi
+    .post<VerifyRegisterTokenResponse>(
+      `/api/v1/auth/register/confirm-mail/${token}`,
+    )
+    .then(resp => resp.data);
+
 export const login = (
   loginPayload: LoginRequest,
 ): Promise<LoginSuccessResponse> =>

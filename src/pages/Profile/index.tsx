@@ -10,7 +10,7 @@ import {
   message,
   Spin,
 } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -56,6 +56,7 @@ const SubmitButton = ({
 };
 
 const ProfilePage = () => {
+  const avatarRef = useRef<any>(null);
   const { idUser } = useParams();
   const dispatch: any = useDispatch();
   const [form] = Form.useForm();
@@ -96,14 +97,15 @@ const ProfilePage = () => {
       message.error('Image must be smaller than 2MB!');
     }
     // Lưu file vào state avatarFile
+    console.log('file', file);
     setAvatarFile(file);
+    avatarRef.current = file;
     // Trả về false để ngăn chặn việc tự động tải lên file
     return false;
   };
 
   const onRemove = () => {
     // Xóa file khỏi state avatarFile khi người dùng xóa avatar
-    setAvatarFile(null);
   };
 
   const normFile = (e: any) => {
@@ -126,7 +128,7 @@ const ProfilePage = () => {
     const values = params;
     const data = {
       id: Number(idUser),
-      avatar: avatarFile && avatarFile.file,
+      avatar: avatarRef.current,
       ...values,
     };
     console.log('dataUpdate', data);
@@ -134,10 +136,7 @@ const ProfilePage = () => {
   };
 
   const handleImageChange = (info: any) => {
-    console.log('info', info);
-    if (info.file.type.startsWith('image/')) {
-      setAvatarFile(info.file);
-    }
+    //
   };
 
   return (
