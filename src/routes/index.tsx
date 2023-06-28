@@ -8,9 +8,7 @@ import Login from 'pages/Auth';
 import ProfilePage from 'pages/Profile';
 import LoginSuccessPage from 'pages/Auth/LoginSuccess';
 import SignUpPage from 'pages/Auth/SignUp';
-import RegisterMailInprogress from 'pages/Auth/RegisterMailStatus/Inprogress';
-import RegisterMailConfirm from 'pages/Auth/RegisterMailStatus/Success';
-import RegisterVerifyFailed from 'pages/Auth/RegisterMailStatus/Failed';
+import RegisterStatus from 'pages/Auth/RegisterMailStatus';
 import { ROUTE_NAMES } from 'constants/path';
 
 const routes: Types.IRoute[] = [
@@ -54,18 +52,8 @@ const routes: Types.IRoute[] = [
     layout: AuthLayout,
   },
   {
-    path: ROUTE_NAMES.REGISTER_MAIL_INPROGRESS_PAGE,
-    component: RegisterMailInprogress,
-    layout: AuthLayout,
-  },
-  {
-    path: ROUTE_NAMES.REGISTER_MAIL_CONFIRM_PAGE,
-    component: RegisterMailConfirm,
-    layout: AuthLayout,
-  },
-  {
-    path: ROUTE_NAMES.REGISTER_MAIL_VERIFY_FAILED_PAGE,
-    component: RegisterVerifyFailed,
+    path: ROUTE_NAMES.REGISTER_VERIFY_STATUS_PAGE,
+    component: RegisterStatus,
     layout: AuthLayout,
   },
   {

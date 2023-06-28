@@ -7,7 +7,7 @@ import {
   registerWithConfirmMailApi,
   verifyRegisterTokenApi,
 } from 'api/auth.api';
-import { notification } from 'antd';
+import { notification, Modal } from 'antd';
 interface User {
   isLoggedIn: boolean | null;
   access_token: string | null;
@@ -39,19 +39,24 @@ const authSlice = createSlice({
     setUser: (state, action: PayloadAction<User | null>) => {
       state.User = action.payload;
     },
-    setDataRegister: (state, action: PayloadAction<any>) => {
-      state.User = {
-        ...state.User,
-        data: action.payload,
-      };
-    },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
+    },
+    setDataAfterLogout: (state, action: PayloadAction<string>) => {
+      state.User = {
+        typeLogin: null,
+        access_token: null,
+        refreshToken: null,
+        isLoggedIn: false,
+        data: {
+          email: action.payload,
+        },
+      };
     },
   },
 });
 
-export const { setUser, setLoading, setDataRegister } = authSlice.actions;
+export const { setUser, setLoading, setDataAfterLogout } = authSlice.actions;
 
 export const registerWithConfirmMail =
   (payload: any) => async (dispatch: any) => {
@@ -68,11 +73,12 @@ export const registerWithConfirmMail =
         });
       } else {
         dispatch(setLoading(false));
-        notification.success({
-          message: 'Successfull',
-          description: resp.message,
+        Modal.success({
+          title: 'Successfull',
+          content: resp.message,
+          width: 500,
+          centered: true,
         });
-        window.location.href = '/register/inprogress';
       }
     } catch (error: any) {
       dispatch(setLoading(false));
@@ -83,78 +89,6 @@ export const registerWithConfirmMail =
     }
   };
 
-export const verifyRegisterToken = (token: string) => async (dispatch: any) => {
-  try {
-    dispatch(setLoading(true));
-    const resp = await verifyRegisterTokenApi(token);
-    if (resp && resp.code !== 0) {
-      dispatch(setLoading(false));
-      notification.error({
-        message: 'Failed',
-        description: resp.message,
-      });
-    } else {
-      dispatch(setLoading(false));
-      const payload = {
-        email: resp.dataRegister.email,
-        name: resp.dataRegister.name,
-      };
-      dispatch(setDataRegister(payload));
-      notification.success({
-        message: 'Successfull',
-        description: resp.message,
-      });
-    }
-  } catch (error: any) {
-    dispatch(setLoading(false));
-    notification.error({
-      message: 'Failed',
-      description: error.message,
-    });
-  }
-};
-
-export const register = (payload: any) => async (dispatch: any) => {
-  try {
-    dispatch(setLoading(true));
-    const resp: any = await RegisterApi({
-      ...payload,
-    });
-    if (resp && resp.code !== 0) {
-      dispatch(setLoading(false));
-      notification.error({
-        message: 'Đăng ký thất bại',
-        description: resp.message,
-      });
-    }
-    if (resp && resp.code === 0 && resp.access_token) {
-      const payload = {
-        isLoggedIn: false,
-        access_token: resp.access_token,
-        data: {
-          email: resp.email,
-        },
-        typeLogin: null,
-        refreshToken: null,
-      };
-      dispatch(setUser(payload));
-      dispatch(setLoading(false));
-      notification.success({
-        message: 'Đăng ký thành công',
-        description: resp.message,
-      });
-      if (resp && resp.access_token) {
-        window.location.href = '/login';
-      }
-    }
-  } catch (error: any) {
-    dispatch(setLoading(false));
-    notification.error({
-      message: 'Đăng ký thất bại',
-      description: error.message,
-    });
-  }
-};
 export const logIn =
   (
     userId?: string | undefined,
@@ -210,8 +144,8 @@ export const logIn =
       });
     }
   };
-export const logOut = () => (dispatch: any) => {
-  dispatch(setUser(null));
+export const logOut = (payload: string) => (dispatch: any) => {
+  dispatch(setDataAfterLogout(payload));
   window.location.href = '/login';
 };
 // selectors

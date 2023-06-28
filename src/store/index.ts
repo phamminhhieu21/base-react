@@ -9,6 +9,7 @@ const rootPersistConfig = {
   key: 'root',
   storage: storage,
   stateReconciler: autoMergeLevel2,
+  whitelist: ['auth'],
 };
 const persisReducer = persistReducer<PersistedState>(
   rootPersistConfig,

@@ -11,6 +11,7 @@ httpApi.interceptors.request.use((config: any) => {
   config.headers = {
     ...config.headers,
     Authorization: `Bearer ${readToken()}`,
+    withCredentials: true,
   };
 
   return config;

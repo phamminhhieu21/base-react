@@ -11,7 +11,7 @@ export const ProfileOverlay: React.FC = ({ ...props }) => {
   const dispatch: any = useDispatch();
   const User = useSelector(selectUser());
   const handleLogOut = () => {
-    dispatch(logOut());
+    dispatch(logOut(User?.data?.email));
   };
   return (
     <div {...props}>

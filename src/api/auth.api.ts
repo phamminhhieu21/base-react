@@ -57,9 +57,9 @@ export interface RegisterRequest {
   email: string;
   password: string;
   name: string;
-  gender: string;
+  gender?: string;
   phone_number?: string;
-  date_of_birth: string;
+  date_of_birth?: string;
 }
 export interface VerifyRegisterTokenResponse {
   code: number;
