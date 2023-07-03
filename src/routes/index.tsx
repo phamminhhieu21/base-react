@@ -10,7 +10,8 @@ import LoginSuccessPage from 'pages/Auth/LoginSuccess';
 import SignUpPage from 'pages/Auth/SignUp';
 import RegisterStatus from 'pages/Auth/RegisterMailStatus';
 import { ROUTE_NAMES } from 'constants/path';
-
+import ForgotPassWord from 'pages/Auth/ForgotPassword';
+import ResetPassword from 'pages/Auth/ResetPassword';
 const routes: Types.IRoute[] = [
   {
     path: ROUTE_NAMES.HOME_PAGE,
@@ -54,6 +55,16 @@ const routes: Types.IRoute[] = [
   {
     path: ROUTE_NAMES.REGISTER_VERIFY_STATUS_PAGE,
     component: RegisterStatus,
+    layout: AuthLayout,
+  },
+  {
+    path: ROUTE_NAMES.FORGOT_PASSWORD_PAGE,
+    component: ForgotPassWord,
+    layout: AuthLayout,
+  },
+  {
+    path: ROUTE_NAMES.RESET_PASSWORD_PAGE,
+    component: ResetPassword,
     layout: AuthLayout,
   },
   {

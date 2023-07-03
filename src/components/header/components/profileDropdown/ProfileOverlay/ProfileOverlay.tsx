@@ -5,11 +5,11 @@ import * as S from './ProfileOverlay.styles';
 import { logOut } from 'store/reducers/auth.reducer';
 import { Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUser } from 'store/reducers/auth.reducer';
+import { selectAuthUser } from 'store/reducers/auth.reducer';
 export const ProfileOverlay: React.FC = ({ ...props }) => {
   const { t } = useTranslation();
   const dispatch: any = useDispatch();
-  const User = useSelector(selectUser());
+  const User = useSelector(selectAuthUser());
   const handleLogOut = () => {
     dispatch(logOut(User?.data?.email));
   };

@@ -17,11 +17,8 @@ export interface ResetPasswordRequest {
   email: string;
 }
 
-export interface SecurityCodePayload {
-  code: string;
-}
-
 export interface NewPasswordData {
+  token : string;
   newPassword: string;
 }
 
@@ -69,6 +66,9 @@ export interface VerifyRegisterTokenResponse {
     name: string;
   };
 }
+export interface forgotPassword {
+  email: string;
+}
 export const register = (registerPayload: RegisterRequest): Promise<any> =>
   httpApi
     .post<any>('/api/v1/auth/register', {
@@ -111,16 +111,18 @@ export const loginSuccess = (loginPayload: LoginSuccessRequest): Promise<any> =>
 export const signUp = (signUpData: SignUpRequest): Promise<undefined> =>
   httpApi.post<undefined>('signUp', { ...signUpData }).then(({ data }) => data);
 
-export const resetPassword = (
-  resetPasswordPayload: ResetPasswordRequest,
-): Promise<undefined> =>
+export const forgotPasswordApi = (
+  payload: forgotPassword,
+): Promise<any> =>
   httpApi
-    .post<undefined>('forgotPassword', { ...resetPasswordPayload })
-    .then(({ data }) => data);
+    .post<any>('/api/v1/auth/forgot-password', {
+      email : payload.email
+    })
+    .then(resp => resp.data);
 
-export const setNewPassword = (
-  newPasswordData: NewPasswordData,
-): Promise<undefined> =>
+export const resetPasswordApi = (
+  payload: NewPasswordData,
+): Promise<any> =>
   httpApi
-    .post<undefined>('setNewPassword', { ...newPasswordData })
-    .then(({ data }) => data);
+    .post<any>('/api/v1/auth/reset-password', payload)
+    .then(resp => resp.data);

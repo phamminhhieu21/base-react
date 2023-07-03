@@ -4,7 +4,7 @@ export const ROUTE_NAMES = {
   REGISTER_PAGE: '/register',
   REGISTER_VERIFY_STATUS_PAGE: '/register/verify/:status',
   FORGOT_PASSWORD_PAGE: '/forgot-password',
-  RESET_PASSWORD_PAGE: '/reset-password',
+  RESET_PASSWORD_PAGE: '/reset-password/:token',
   PROFILE_PAGE: '/user/profile/:idUser',
   UPLOAD_PAGE: '/media/upload',
   EXPORT_PAGE: '/export',

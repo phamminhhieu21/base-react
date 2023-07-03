@@ -9,14 +9,14 @@ import {
 } from '@ant-design/icons';
 import { LoginWrapper } from './styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { logIn, selectUser } from 'store/reducers/auth.reducer';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { logIn, selectAuthUser } from 'store/reducers/auth.reducer';
+import {  useNavigate } from 'react-router-dom';
 
 // import { AppDispatch } from 'store'
 function Login() {
   const dispatch: any = useDispatch();
   const navigate = useNavigate();
-  const User = useSelector(selectUser());
+  const User = useSelector(selectAuthUser());
   const [initialValues, setInitialValues] = useState({
     remember: true,
     email: User?.data?.email,
@@ -65,7 +65,7 @@ function Login() {
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
-          <a className="login-form-forgot" href="">
+          <a className="login-form-forgot" href="/forgot-password" target="_blank">
             Forgot password
           </a>
         </Form.Item>

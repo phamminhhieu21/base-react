@@ -1,13 +1,13 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectUser } from 'store/reducers/auth.reducer';
+import { selectAuthUser } from 'store/reducers/auth.reducer';
 import { isTokenAuthExpired } from 'utils/checkExpireToken';
 import { Modal } from 'antd';
 
 export const ProtectedRoute = ({ children }: any) => {
   //check valid token and is authenticated
-  const User: any = useSelector(selectUser());
+  const User: any = useSelector(selectAuthUser());
   const checkValidAuth =
     User?.isLoggedIn && isTokenAuthExpired(User?.access_token || null)
       ? false

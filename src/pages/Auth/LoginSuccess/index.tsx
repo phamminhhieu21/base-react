@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logIn, selectUser } from 'store/reducers/auth.reducer';
+import { logIn, selectAuthUser } from 'store/reducers/auth.reducer';
 const LoginSuccessPage = () => {
   const dispatch: any = useDispatch();
   const { tokenLogin, idGoogle } = useParams();
   console.log(tokenLogin, idGoogle);
-  const User = useSelector(selectUser());
+  const User = useSelector(selectAuthUser());
   console.log(User);
   useEffect(() => {
     dispatch(logIn(idGoogle, tokenLogin, 'google'));

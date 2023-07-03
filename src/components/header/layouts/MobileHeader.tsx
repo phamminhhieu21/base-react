@@ -21,17 +21,14 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
       <BaseCol>
         <ProfileDropdown />
       </BaseCol>
-
       <BaseCol>
         <BaseRow align="middle">
           <BaseCol>
             <NotificationsDropdown />
           </BaseCol>
-
           <BaseCol>
             <HeaderSearch />
           </BaseCol>
-
           <BaseCol>
             <SettingsDropdown />
           </BaseCol>

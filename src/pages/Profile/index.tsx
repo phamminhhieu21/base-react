@@ -14,7 +14,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  getProfileUserAction,
+  loadProfileUserAction,
   selectProfileUser,
   updateProfileUserAction,
 } from 'store/reducers/user.reducer';
@@ -118,7 +118,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (idUser) {
-      dispatch(getProfileUserAction(idUser));
+      dispatch(loadProfileUserAction(idUser));
     }
   }, [idUser]);
 

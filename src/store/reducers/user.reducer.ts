@@ -64,7 +64,7 @@ const userSlice = createSlice({
 
 export const { setProfileUser, setLoading, updateProfileUser } =
   userSlice.actions;
-export const getProfileUserAction =
+export const loadProfileUserAction =
   (payload: string) => async (dispatch: any) => {
     try {
       dispatch(setLoading(true));

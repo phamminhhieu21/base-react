@@ -3,9 +3,9 @@ import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import {
   loginSuccess,
   login,
-  register as RegisterApi,
   registerWithConfirmMailApi,
-  verifyRegisterTokenApi,
+  forgotPasswordApi,
+  resetPasswordApi
 } from 'api/auth.api';
 import { notification, Modal } from 'antd';
 interface User {
@@ -144,11 +144,74 @@ export const logIn =
       });
     }
   };
+
 export const logOut = (payload: string) => (dispatch: any) => {
   dispatch(setDataAfterLogout(payload));
   window.location.href = '/login';
 };
-// selectors
-export const selectUser = () => (state: any) => state.auth.User;
 
+export const forgotPasswordAction =
+  (payload: any) => async (dispatch: any) => {
+    console.log(payload)
+    try {
+      dispatch(setLoading(true));
+      const resp = await forgotPasswordApi(payload);
+      if (resp && resp.code !== 0) {
+        dispatch(setLoading(false));
+        notification.error({
+          message: 'Failed',
+          description: resp.message,
+        });
+      } else {
+        dispatch(setLoading(false));
+        Modal.success({
+          title: 'Successfull',
+          content: resp.message,
+          width: 500,
+          centered: true,
+        });
+      }
+    } catch (error: any) {
+      dispatch(setLoading(false));
+      notification.error({
+        message: 'Failed',
+        description: error.message,
+      });
+    }
+  };
+
+export const resetPasswordAction =
+  (payload: any) => async (dispatch: any) => {
+    try {
+      dispatch(setLoading(true));
+      const resp : any = await resetPasswordApi(payload);
+      if (resp && resp.code !== 0) {
+        dispatch(setLoading(false));
+        notification.error({
+          message: 'Failed',
+          description: resp.message,
+        });
+      } else {
+        dispatch(setLoading(false));
+        Modal.success({
+          title: 'Successfull',
+          content: resp.message,
+          width: 500,
+          centered: true,
+          onOk: () => {
+            window.location.href = '/login';
+          }
+        });
+      }
+    } catch (error: any) {
+      dispatch(setLoading(false));
+      notification.error({
+        message: 'Failed',
+        description: error.message,
+      });
+    }
+  };
+
+// selectors
+export const selectAuthUser = () => (state: any) => state.auth.User;
 export default authSlice.reducer;
