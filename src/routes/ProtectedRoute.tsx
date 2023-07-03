@@ -13,21 +13,14 @@ export const ProtectedRoute = ({ children }: any) => {
       ? false
       : true;
 
-  if (!checkValidAuth) {
+  if (!checkValidAuth || !User?.isLoggedIn) {
     Modal.error({
-      title: 'Session has expired',
+      title: `${
+        !checkValidAuth ? 'Session has expired' : 'You are not logged in yet'
+      }`,
       content: 'Please log in again to continue using',
       onOk: () => {
         // localStorage.clear();
-        window.location.href = '/login';
-      },
-    });
-  }
-  if (!User?.isLoggedIn) {
-    Modal.warning({
-      title: 'Warning',
-      content: 'Please log in your account to using this function',
-      onOk: () => {
         window.location.href = '/login';
       },
     });

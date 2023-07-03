@@ -6,7 +6,7 @@ import * as S from './ProfileNav.styles';
 export interface ProfileNav {
   id: number;
 }
-const ProfileNav = ({id} : ProfileNav) => {
+const ProfileNav = ({ id }: ProfileNav) => {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
@@ -14,14 +14,14 @@ const ProfileNav = ({id} : ProfileNav) => {
 
   return (
     <S.Wrapper>
-      {profileNavData.map((item : any) => (
+      {profileNavData.map((item: any) => (
         <S.Btn
           key={item.id}
           icon={item.icon}
           type="text"
           color={item.color}
-          onClick={() => navigate(`/user/profile/${item.href}/${id}`)}
-          $isActive={`/user/profile/${item.href}/${id}` === location.pathname}
+          onClick={() => navigate(`/user/profile/${id}/${item.href}`)}
+          $isActive={`/user/profile/${id}/${item.href}` === location.pathname}
         >
           {t(item.name)}
         </S.Btn>

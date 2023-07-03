@@ -12,7 +12,7 @@ import RegisterStatus from 'pages/Auth/RegisterMailStatus';
 import { ROUTE_NAMES } from 'constants/path';
 import ForgotPassWord from 'pages/Auth/ForgotPassword';
 import ResetPassword from 'pages/Auth/ResetPassword';
-import ProfileInfo from 'pages/Profile/components/ProfileCard';
+import Information from 'pages/Profile/components/nav/Information';
 import Security from 'pages/Profile/components/nav/Security';
 const routes: Types.IRoute[] = [
   {
@@ -49,13 +49,13 @@ const routes: Types.IRoute[] = [
     children: [
       {
         path: ROUTE_NAMES.PERSONAL_INFO_PAGE,
-        component: ProfileInfo,
-        layout: ProfileLayout,
+        component: Information,
+        // layout: ProfileLayout,
       },
       {
         path: ROUTE_NAMES.SECURITY_PAGE,
         component: Security,
-        layout: ProfileLayout,
+        // layout: ProfileLayout,
       },
     ],
     layout: CommonLayout,

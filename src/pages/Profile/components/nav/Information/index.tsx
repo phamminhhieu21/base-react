@@ -145,6 +145,9 @@ const Information = () => {
     <Spin spinning={ProfileUser?.isLoading}>
       <BaseCard>
         <BaseRow gutter={{ xs: 10, md: 15, xl: 30 }}>
+          <BaseCol span={24}>
+            <h3 className="py-2">Personal info</h3>
+          </BaseCol>
           <Form
             form={form}
             name="validateOnly"
@@ -153,114 +156,121 @@ const Information = () => {
             // initialValues={initialValues}
             onFinish={handleUpdateProfile}
           >
-            <BaseCol xs={24} md={12}>
-            <Form.Item
-              name="name"
-              label="Name"
-              rules={[{ required: true, message: 'Please input your name!' }]}
-            >
-              <Input />
-            </Form.Item>
+            <BaseCol xs={24} md={24}>
+              <Form.Item
+                name="name"
+                label="Name"
+                rules={[{ required: true, message: 'Please input your name!' }]}
+              >
+                <Input />
+              </Form.Item>
             </BaseCol>
-            <BaseCol xs={24} md={12}><Form.Item
-              name="email"
-              label="Email"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your email!',
-                  type: 'email',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item></BaseCol>
-            <BaseCol xs={24} md={12}>
-            <Form.Item
-              name="date_of_birth"
-              label="Date of Birth"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your Date of Birth!',
-                  // whitespace: true,
-                },
-              ]}
-            >
-              <DatePicker format={'YYYY-MM-DD'} />
-            </Form.Item>
+            <BaseCol xs={24} md={24}>
+              <Form.Item
+                name="email"
+                label="Email"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your email!',
+                    type: 'email',
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+            </BaseCol>
+            <BaseCol xs={24} md={24}>
+              <Form.Item
+                name="date_of_birth"
+                label="Date of Birth"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your Date of Birth!',
+                    // whitespace: true,
+                  },
+                ]}
+              >
+                <DatePicker format={'YYYY-MM-DD'} />
+              </Form.Item>
             </BaseCol>
 
-            <BaseCol xs={24} md={12}>
-            <Form.Item
-              name="phone_number"
-              label="Phone Number"
-              rules={[
-                {
-                  // required: true,
-                  message: 'Input your phone is number!',
-                  pattern: new RegExp(/^[0-9\b]+$/),
-                  min: 10,
-                  max: 11,
-                },
-              ]}
-            >
-              <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
-            </Form.Item>
-            </BaseCol>
-            <BaseCol xs={24} md={12}>
-            <Form.Item
-              name="gender"
-              label="Gender"
-              rules={[{ required: true, message: 'Please select gender!' }]}
-            >
-              <Select placeholder="select your gender">
-                <Option value="male">Male</Option>
-                <Option value="female">Female</Option>
-                <Option value="other">Other</Option>
-              </Select>
-            </Form.Item>
-            </BaseCol>
-            <BaseCol xs={24} md={12}>
-            <Form.Item
-              name="avatar"
-              label="Avatar"
-              // valuePropName="fileList"
-              // getValueFromEvent={normFile}
-            >
-              <Upload
-                name="upload"
-                accept="image/*"
-                beforeUpload={beforeUpload}
-                onRemove={onRemove}
-                showUploadList={false}
-                // onChange={handleImageChange}
-                // listType="picture"
-                // fileList={avatarFile ? [avatarFile] : []}
+            <BaseCol xs={24} md={24}>
+              <Form.Item
+                name="phone_number"
+                label="Phone Number"
+                rules={[
+                  {
+                    // required: true,
+                    message: 'Input your phone is number!',
+                    pattern: new RegExp(/^[0-9\b]+$/),
+                    min: 10,
+                    max: 11,
+                  },
+                ]}
               >
-                {avatarFile ? (
-                  <img
-                    src={URL.createObjectURL(avatarFile)}
-                    alt="Uploaded Image"
-                    style={{ maxWidth: '30%', maxHeight: '50%' }}
-                  />
-                ) : (
-                  <div>
-                    <div className="upload-icon">
-                      <UploadOutlined />
-                    </div>
-                    <div className="upload-text">Click to Upload</div>
-                  </div>
-                )}
-              </Upload>
-            </Form.Item>
+                <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+              </Form.Item>
             </BaseCol>
-            <Form.Item>
-              <Space>
-                <SubmitButton form={form} isLoading={ProfileUser?.isLoading} />
-                <Button htmlType="reset">Reset</Button>
-              </Space>
-            </Form.Item>
+            <BaseCol xs={24} md={24}>
+              <Form.Item
+                name="gender"
+                label="Gender"
+                rules={[{ required: true, message: 'Please select gender!' }]}
+              >
+                <Select placeholder="select your gender">
+                  <Option value="male">Male</Option>
+                  <Option value="female">Female</Option>
+                  <Option value="other">Other</Option>
+                </Select>
+              </Form.Item>
+            </BaseCol>
+            <BaseCol xs={24} md={24}>
+              <Form.Item
+                name="avatar"
+                label="Avatar"
+                // valuePropName="fileList"
+                // getValueFromEvent={normFile}
+              >
+                <Upload
+                  name="upload"
+                  accept="image/*"
+                  beforeUpload={beforeUpload}
+                  onRemove={onRemove}
+                  showUploadList={false}
+                  // onChange={handleImageChange}
+                  // listType="picture"
+                  // fileList={avatarFile ? [avatarFile] : []}
+                >
+                  {avatarFile ? (
+                    <img
+                      src={URL.createObjectURL(avatarFile)}
+                      alt="Uploaded Image"
+                      style={{ maxWidth: '30%', maxHeight: '50%' }}
+                    />
+                  ) : (
+                    <div>
+                      <div className="upload-icon">
+                        <UploadOutlined />
+                      </div>
+                      <div className="upload-text">Click to Upload</div>
+                    </div>
+                  )}
+                </Upload>
+              </Form.Item>
+            </BaseCol>
+            <BaseCol span={24}>
+              <Form.Item>
+                <Space>
+                  <SubmitButton
+                    form={form}
+                    isLoading={ProfileUser?.isLoading}
+                  />
+                  <Button htmlType="reset">Reset</Button>
+                </Space>
+              </Form.Item>
+            </BaseCol>
           </Form>
         </BaseRow>
       </BaseCard>
