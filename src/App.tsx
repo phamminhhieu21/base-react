@@ -10,9 +10,7 @@ import routes from 'routes';
 // import { useLanguage } from './hooks/useLanguage';
 
 function App() {
-  // const { language } = useLanguage();
   const { i18n } = useTranslation();
-  console.log(i18n.language);
   return (
     <HelmetProvider>
       <ConfigProvider locale={i18n.language == 'en' ? enUS : viVN}>
@@ -34,7 +32,26 @@ function App() {
                       </Layout>
                     </Protected>
                   }
-                />
+                >
+                  {route.children?.map((child, index) => {
+                    const Protected = child.isProtected ? ProtectedRoute : Fragment;
+                    const Layout = child.layout ?? Fragment;
+                    const Component = child.component;
+                    return (
+                      <Route
+                        key={index}
+                        path={child.path}
+                        element={
+                          <Protected>
+                            <Layout>
+                              <Component />
+                            </Layout>
+                          </Protected>
+                        }
+                      />
+                    )
+                  })}
+                </Route>
               );
             })}
           </Routes>

@@ -7,6 +7,7 @@ declare namespace Types {
     component: Component;
     layout?: Component;
     isProtected?: boolean;
+    children?: IRoute[];
   }
 
   export interface IObject<T = any> {

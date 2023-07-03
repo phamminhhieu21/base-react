@@ -5,13 +5,15 @@ import NotFoundPage from 'pages/NotFoundPage';
 import UploadPage from 'pages/UploadPage';
 import ExportPage from 'pages/ExportPage';
 import Login from 'pages/Auth';
-import ProfilePage from 'pages/Profile';
+import ProfileLayout from 'pages/Profile';
 import LoginSuccessPage from 'pages/Auth/LoginSuccess';
 import SignUpPage from 'pages/Auth/SignUp';
 import RegisterStatus from 'pages/Auth/RegisterMailStatus';
 import { ROUTE_NAMES } from 'constants/path';
 import ForgotPassWord from 'pages/Auth/ForgotPassword';
 import ResetPassword from 'pages/Auth/ResetPassword';
+import ProfileInfo from 'pages/Profile/components/ProfileCard';
+import Security from 'pages/Profile/components/nav/Security';
 const routes: Types.IRoute[] = [
   {
     path: ROUTE_NAMES.HOME_PAGE,
@@ -43,7 +45,19 @@ const routes: Types.IRoute[] = [
   },
   {
     path: ROUTE_NAMES.PROFILE_PAGE,
-    component: ProfilePage,
+    component: ProfileLayout,
+    children: [
+      {
+        path: ROUTE_NAMES.PERSONAL_INFO_PAGE,
+        component: ProfileInfo,
+        layout: ProfileLayout,
+      },
+      {
+        path: ROUTE_NAMES.SECURITY_PAGE,
+        component: Security,
+        layout: ProfileLayout,
+      },
+    ],
     layout: CommonLayout,
     isProtected: true,
   },

@@ -1,254 +1,103 @@
-import type { FormInstance } from 'antd';
-import {
-  Button,
-  Form,
-  Input,
-  Space,
-  DatePicker,
-  Select,
-  Upload,
-  message,
-  Spin,
-} from 'antd';
-import React, { useEffect, useState, useRef } from 'react';
-import { UploadOutlined } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { LeftOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import { BaseCard } from 'components/common/BaseCard/BaseCard';
+import { BaseButton } from 'components/common/BaseButton/BaseButton';
+import ProfileInfo from './components/ProfileCard';
+import { PageTitle } from 'components/common/PageTitle/PageTitle';
+import ProfileNav from './components/ProfileNav';
+import { useResponsive } from 'hooks/useResponsive';
+import { useAppSelector, useAppDispatch } from 'hooks/reduxHooks';
+import { BaseRow } from 'components/common/BaseRow/BaseRow';
+import { BaseCol } from 'components/common/BaseCol/BaseCol';
 import {
   loadProfileUserAction,
   selectProfileUser,
-  updateProfileUserAction,
 } from 'store/reducers/user.reducer';
-import { useParams } from 'react-router-dom';
-import dayjs from 'dayjs';
-const SubmitButton = ({
-  form,
-  isLoading,
-}: {
-  form: FormInstance;
-  isLoading?: boolean;
-}) => {
-  const [submittable, setSubmittable] = useState(false);
 
-  // Watch all values
-  const values = Form.useWatch([], form);
-
-  useEffect(() => {
-    form.validateFields({ validateOnly: true }).then(
-      () => {
-        setSubmittable(true);
-      },
-      () => {
-        setSubmittable(false);
-      },
-    );
-  }, [values]);
-
-  return (
-    <Button
-      type="primary"
-      htmlType="submit"
-      disabled={!submittable}
-      loading={isLoading}
-    >
-      Submit
-    </Button>
-  );
-};
-
-const ProfilePage = () => {
-  const avatarRef = useRef<any>(null);
+const ProfileLayout: React.FC = () => {
   const { idUser } = useParams();
-  const dispatch: any = useDispatch();
-  const [form] = Form.useForm();
-  const { Option } = Select;
+  const dispatch = useAppDispatch();
+  const { data } = useAppSelector(selectProfileUser());
 
-  const ProfileUser = useSelector(selectProfileUser());
-  const [avatarFile, setAvatarFile] = useState<any>(null);
-  console.log('avatarFile', avatarFile);
+  const { t } = useTranslation();
+  const { isTablet: isTabletOrHigher, mobileOnly } = useResponsive();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const { isTablet } = useResponsive();
+
+  const isTitleShown =
+    isTabletOrHigher || (mobileOnly && location.pathname === '/profile');
+  const isMenuShown =
+    isTabletOrHigher || (mobileOnly && location.pathname !== '/profile');
+
   useEffect(() => {
-    if (ProfileUser?.data) {
-      form.setFieldsValue({
-        name: ProfileUser?.data?.name,
-        email: ProfileUser?.data?.email,
-        date_of_birth: dayjs(ProfileUser?.data?.date_of_birth),
-        phone_number: ProfileUser?.data?.phone_number,
-        gender: ProfileUser?.data?.gender,
-      });
-    }
-  }, [ProfileUser]);
-
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select style={{ width: 70 }}>
-        <Option value="84">+84</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  );
-
-  const beforeUpload = (file: any) => {
-    console.log('beforeUpload', file);
-    const isImage = file.type.startsWith('image/');
-    if (!isImage) {
-      message.error('Only image files are allowed!');
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error('Image must be smaller than 2MB!');
-    }
-    // Lưu file vào state avatarFile
-    console.log('file', file);
-    setAvatarFile(file);
-    avatarRef.current = file;
-    // Trả về false để ngăn chặn việc tự động tải lên file
-    return false;
-  };
-
-  const onRemove = () => {
-    // Xóa file khỏi state avatarFile khi người dùng xóa avatar
-  };
-
-  const normFile = (e: any) => {
-    console.log('Upload event:', e);
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.fileList;
-  };
+    isTablet && location.pathname === '/profile' && navigate('personal-info');
+  }, [isTablet, location.pathname, navigate]);
 
   useEffect(() => {
     if (idUser) {
       dispatch(loadProfileUserAction(idUser));
     }
   }, [idUser]);
-
-  const handleUpdateProfile = ({ prefix, ...params }: any) => {
-    console.log('form', form.getFieldsValue());
-    console.log('avt', avatarFile);
-    const values = params;
-    const data = {
-      id: Number(idUser),
-      avatar: avatarRef.current,
-      ...values,
-    };
-    console.log('dataUpdate', data);
-    dispatch(updateProfileUserAction(data));
-  };
-
-  const handleImageChange = (info: any) => {
-    //
-  };
-
   return (
-    <Spin spinning={ProfileUser?.isLoading}>
-      <Form
-        form={form}
-        name="validateOnly"
-        layout="vertical"
-        autoComplete="off"
-        // initialValues={initialValues}
-        onFinish={handleUpdateProfile}
-      >
-        <Form.Item
-          name="name"
-          label="Name"
-          rules={[{ required: true, message: 'Please input your name!' }]}
+    <>
+      <PageTitle>{t('profile.title')}</PageTitle>
+      {!isTitleShown && (
+        <Btn
+          icon={<LeftOutlined />}
+          type="text"
+          onClick={() => navigate('/profile')}
         >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="email"
-          label="Email"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your email!',
-              type: 'email',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="date_of_birth"
-          label="Date of Birth"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your Date of Birth!',
-              // whitespace: true,
-            },
-          ]}
-        >
-          <DatePicker format={'YYYY-MM-DD'} />
-        </Form.Item>
-        <Form.Item
-          name="phone_number"
-          label="Phone Number"
-          rules={[
-            {
-              // required: true,
-              message: 'Input your phone is number!',
-              pattern: new RegExp(/^[0-9\b]+$/),
-              min: 10,
-              max: 11,
-            },
-          ]}
-        >
-          <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
-        </Form.Item>
-        <Form.Item
-          name="gender"
-          label="Gender"
-          rules={[{ required: true, message: 'Please select gender!' }]}
-        >
-          <Select placeholder="select your gender">
-            <Option value="male">Male</Option>
-            <Option value="female">Female</Option>
-            <Option value="other">Other</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name="avatar"
-          label="Avatar"
-          // valuePropName="fileList"
-          // getValueFromEvent={normFile}
-        >
-          <Upload
-            name="upload"
-            accept="image/*"
-            beforeUpload={beforeUpload}
-            onRemove={onRemove}
-            showUploadList={false}
-            // onChange={handleImageChange}
-            // listType="picture"
-            // fileList={avatarFile ? [avatarFile] : []}
-          >
-            {avatarFile ? (
-              <img
-                src={URL.createObjectURL(avatarFile)}
-                alt="Uploaded Image"
-                style={{ maxWidth: '30%', maxHeight: '50%' }}
-              />
-            ) : (
-              <div>
-                <div className="upload-icon">
-                  <UploadOutlined />
-                </div>
-                <div className="upload-text">Click to Upload</div>
-              </div>
-            )}
-          </Upload>
-        </Form.Item>
-        <Form.Item>
-          <Space>
-            <SubmitButton form={form} isLoading={ProfileUser?.isLoading} />
-            <Button htmlType="reset">Reset</Button>
-          </Space>
-        </Form.Item>
-      </Form>
-    </Spin>
+          {t('common.back')}
+        </Btn>
+      )}
+
+      <BaseRow gutter={[30, 30]}>
+        {isTitleShown && (
+          <BaseCol xs={24} md={24} xl={8}>
+            <ProfileCard>
+              <BaseRow gutter={[30, 30]}>
+                <BaseCol xs={24} md={12} xl={24}>
+                  <ProfileInfo
+                    profileData={{
+                      name: data?.name,
+                      avatar: data?.avatar,
+                    }}
+                  />
+                </BaseCol>
+                <BaseCol xs={24} md={12} xl={24}>
+                  <ProfileNav id={data.id} />
+                </BaseCol>
+              </BaseRow>
+            </ProfileCard>
+          </BaseCol>
+        )}
+        {isMenuShown && (
+          <BaseCol xs={24} md={24} xl={16}>
+            <Outlet />
+          </BaseCol>
+        )}
+      </BaseRow>
+    </>
   );
 };
 
-export default ProfilePage;
+const ProfileCard = styled(BaseCard)`
+  height: unset;
+`;
+
+const Btn = styled(BaseButton)`
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  padding: 0;
+  height: unset;
+  color: var(--secondary-color);
+`;
+
+export default ProfileLayout;
