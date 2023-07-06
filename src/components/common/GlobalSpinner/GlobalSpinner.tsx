@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { hexToHSL } from '@app/utils/utils';
+import { hexToHSL } from 'utils/utils';
 
 interface SpinnerOriginalProps {
   className?: string;

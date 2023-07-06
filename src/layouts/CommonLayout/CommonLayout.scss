@@ -1,9 +1,13 @@
 #common-layout {
-  background-color: #cebce24f;
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  background-image: linear-gradient(to right, rgb(255, 228, 230), rgb(204, 251, 241));
   .ant-layout-content {
     min-height: calc(100vh - 235px) !important;
     #container-content {
       border-radius: 15px;
+      background-color: rgb(255 255 255 / 75%);
+      box-shadow: 6px 10px 16px -8px rgba(0,0,0,0.1);
     }
   }
 }

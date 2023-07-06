@@ -20,7 +20,7 @@ const CommonLayout = ({ children }: any) => {
     // setIsTwoColumnsLayout([ ].includes(location.pathname) && isDesktop);
   }, [location.pathname, isDesktop]);
   return (
-    <Layout id="common-layout">
+    <Layout id="common-layout" >
       <Header
         toggleSider={toggleSider}
         isSiderOpened={!siderCollapsed}
@@ -33,7 +33,7 @@ const CommonLayout = ({ children }: any) => {
           <Breadcrumb.Item>App</Breadcrumb.Item>
         </Breadcrumb>
         <Layout
-          style={{ padding: '24px 0', background: colorBgContainer }}
+          style={{ padding: '24px 0'}}
           id="container-content"
         >
           <Sider />

@@ -21,6 +21,11 @@ export interface NewPasswordData {
   token : string;
   newPassword: string;
 }
+export interface ChangePasswordRequest {
+  id: string | undefined;
+  oldPassword: string;
+  newPassword: string;
+}
 
 export interface LoginRequest {
   email: string | undefined;
@@ -125,4 +130,11 @@ export const resetPasswordApi = (
 ): Promise<any> =>
   httpApi
     .post<any>('/api/v1/auth/reset-password', payload)
+    .then(resp => resp.data);
+
+export const changePasswordApi = (
+  payload: ChangePasswordRequest,
+): Promise<any> =>
+  httpApi
+    .post<any>('/api/v1/auth/change-password', payload)
     .then(resp => resp.data);

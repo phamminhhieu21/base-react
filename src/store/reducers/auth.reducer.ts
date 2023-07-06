@@ -5,9 +5,11 @@ import {
   login,
   registerWithConfirmMailApi,
   forgotPasswordApi,
-  resetPasswordApi
+  resetPasswordApi,
+  changePasswordApi
 } from 'api/auth.api';
 import { notification, Modal } from 'antd';
+import { notificationController } from 'controllers/notificationController';
 interface User {
   isLoggedIn: boolean | null;
   access_token: string | null;
@@ -208,6 +210,34 @@ export const resetPasswordAction =
       notification.error({
         message: 'Failed',
         description: error.message,
+      });
+    }
+  };
+
+export const changePasswordAction =
+  (payload: {
+    id : string | undefined;
+    oldPassword: string;
+    newPassword: string;
+  }) => async (dispatch: any) => {
+    try {
+      dispatch(setLoading(true));
+      const resp : any = await changePasswordApi(payload);
+      if (resp && resp.code !== 0) {
+        dispatch(setLoading(false));
+        notificationController.error({
+          message: resp.message
+        });
+      } else {
+        dispatch(setLoading(false));
+        notificationController.success({
+          message: resp.message
+        });
+      }
+    } catch (error: any) {
+      dispatch(setLoading(false));
+      notificationController.error({
+        message: error.message
       });
     }
   };

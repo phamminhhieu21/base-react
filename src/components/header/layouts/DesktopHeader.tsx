@@ -63,13 +63,11 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
               <BaseCol>
                 <NotificationsDropdown />
               </BaseCol>
-
               <BaseCol>
                 <SettingsDropdown />
               </BaseCol>
             </BaseRow>
           </BaseCol>
-
           <BaseCol>
             <ProfileDropdown />
           </BaseCol>

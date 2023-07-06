@@ -9,7 +9,7 @@ import ProfileLayout from 'pages/Profile';
 import LoginSuccessPage from 'pages/Auth/LoginSuccess';
 import SignUpPage from 'pages/Auth/SignUp';
 import RegisterStatus from 'pages/Auth/RegisterMailStatus';
-import { ROUTE_NAMES } from 'constants/path';
+import { ROUTE_NAMES } from 'routes/pathName';
 import ForgotPassWord from 'pages/Auth/ForgotPassword';
 import ResetPassword from 'pages/Auth/ResetPassword';
 import Information from 'pages/Profile/components/nav/Information';

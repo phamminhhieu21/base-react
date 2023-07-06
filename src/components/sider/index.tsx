@@ -31,7 +31,7 @@ const Sider = ({ collapsed }: Sider) => {
   );
   const defaultOpenKeys = openedSubmenu ? [openedSubmenu.key] : [];
   return (
-    <Layout.Sider style={{ background: colorBgContainer }} width={200}>
+    <Layout.Sider style={{ background: colorBgContainer }} width={200} className='ml-6 overflow-hidden rounded-xl shadow-md'>
       <div className="demo-logo-vertical" />
       <Menu
         mode="inline"
