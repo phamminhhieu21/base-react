@@ -1,13 +1,7 @@
-import { httpApi } from 'api/http.api';
+import { updateUserCurrentRequest } from 'Models/user.model';
+import { httpApi, httpUploadApi } from 'api/http.api';
 
-export interface updateUserCurrentRequest {
-  name?: string | null;
-  email?: string | null;
-  phone_number?: string | null;
-  date_of_birth?: string | null;
-  gender?: string | null;
-  avatar?: string | null;
-}
+
 
 export const getUserCurrentApi = (idUser: string): Promise<any> =>
   httpApi.post<any>(`/api/v1/user/${idUser}`).then((resp: any) => resp.data);

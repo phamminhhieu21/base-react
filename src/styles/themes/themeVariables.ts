@@ -117,7 +117,7 @@ export const darkThemeVariables = css`
 `;
 
 export const commonThemeVariables = css`
-  color-scheme: light dark;
+  color-scheme: light;
   --white: ${BASE_COLORS.white};
   --black: ${BASE_COLORS.black};
   --green: ${BASE_COLORS.green};

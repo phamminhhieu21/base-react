@@ -91,7 +91,11 @@ export const updateProfileUserAction =
   (payload: any) => async (dispatch: any) => {
     try {
       dispatch(setLoading(true));
-      const resp: any = await updateUserCurrentApi(payload);
+
+      const resp: any = await updateUserCurrentApi({
+        ...payload,
+        avatar: payload.avatar?.file,
+      });
       if (resp && resp.err == 0) {
         dispatch(setLoading(false));
         notification.success({

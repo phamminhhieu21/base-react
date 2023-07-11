@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Layout, Menu, theme } from 'antd';
-import styled from 'styled-components';
 import { sidebarNavigation, SidebarNavigationItem } from './MenuItem';
 import { Link, useLocation } from 'react-router-dom';
 interface Sider {
@@ -16,7 +15,6 @@ const sidebarNavFlat = sidebarNavigation.reduce(
   [],
 );
 const Sider = ({ collapsed }: Sider) => {
-  const Wrapped = styled.div``;
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -31,7 +29,7 @@ const Sider = ({ collapsed }: Sider) => {
   );
   const defaultOpenKeys = openedSubmenu ? [openedSubmenu.key] : [];
   return (
-    <Layout.Sider style={{ background: colorBgContainer }} width={200} className='ml-6 overflow-hidden rounded-xl shadow-md'>
+    <Layout.Sider style={{ background: colorBgContainer }} width={200} className='ml-6 overflow-hidden rounded-xl'>
       <div className="demo-logo-vertical" />
       <Menu
         mode="inline"

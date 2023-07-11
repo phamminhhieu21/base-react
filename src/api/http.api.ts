@@ -7,6 +7,19 @@ export const httpApi = axios.create({
   baseURL: process.env.REACT_APP_URL_API,
 });
 
+export const httpUploadApi = axios.create({
+  baseURL: process.env.REACT_APP_URL_API,
+});
+
+httpUploadApi.interceptors.request.use((config: any) => {
+  config.headers = {
+    ...config.headers,
+    Authorization: `Bearer ${readToken()}`,
+    'Content-Type': 'multipart/form-data',
+  };
+  return config;
+});
+
 httpApi.interceptors.request.use((config: any) => {
   config.headers = {
     ...config.headers,

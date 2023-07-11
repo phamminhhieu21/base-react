@@ -5,9 +5,7 @@ import { logIn, selectAuthUser } from 'store/reducers/auth.reducer';
 const LoginSuccessPage = () => {
   const dispatch: any = useDispatch();
   const { tokenLogin, idGoogle } = useParams();
-  console.log(tokenLogin, idGoogle);
   const User = useSelector(selectAuthUser());
-  console.log(User);
   useEffect(() => {
     dispatch(logIn(idGoogle, tokenLogin, 'google'));
   }, []);

@@ -98,16 +98,15 @@ const Information = () => {
     if (!isLt2M) {
       message.error('Image must be smaller than 2MB!');
     }
-    // Lưu file vào state avatarFile
+    // save file to state avatarFile
     console.log('file', file);
     setAvatarFile(file);
     avatarRef.current = file;
-    // Trả về false để ngăn chặn việc tự động tải lên file
     return false;
   };
 
   const onRemove = () => {
-    // Xóa file khỏi state avatarFile khi người dùng xóa avatar
+    //
   };
 
   const normFile = (e: any) => {
@@ -130,7 +129,7 @@ const Information = () => {
     const values = params;
     const data = {
       id: Number(idUser),
-      avatar: avatarRef.current,
+      avatar: avatarFile,
       ...values,
     };
     console.log('dataUpdate', data);
@@ -139,6 +138,7 @@ const Information = () => {
 
   const handleImageChange = (info: any) => {
     //
+    console.log('change')
   };
 
   return (
