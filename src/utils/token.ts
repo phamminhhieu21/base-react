@@ -1,8 +1,4 @@
-export const persistToken = (token: string): void => {
-  localStorage.setItem('accessToken', token);
-};
-
-export const readToken = (type : string): string => {
+export const readToken = (type = 'access_token'): string => {
   let token = '';
   const storageData = localStorage.getItem('persist:root');
   if (storageData) {
@@ -12,4 +8,3 @@ export const readToken = (type : string): string => {
   }
   return token;
 };
-

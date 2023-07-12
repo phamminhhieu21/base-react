@@ -1,4 +1,4 @@
-export function isTokenAuthExpired(token: string | null | undefined) {
+export function isTokenExpired(token: string | null | undefined) {
   if (!token) return true;
   const decodedToken: any = JSON.parse(atob(token?.split('.')[1]));
   if (!decodedToken || !decodedToken.exp) {

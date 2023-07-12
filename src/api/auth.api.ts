@@ -71,3 +71,8 @@ export const changePasswordApi = (
   httpApi
     .post<any>('/api/v1/auth/change-password', payload)
     .then(resp => resp.data);
+
+export const refreshTokenApi = (refreshToken: string): Promise<any> =>
+  httpApi
+    .post<any>(`/api/v1/auth/refresh-token/${refreshToken}`)
+    .then(resp => resp.data);

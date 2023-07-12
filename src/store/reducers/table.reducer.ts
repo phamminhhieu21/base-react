@@ -9,7 +9,6 @@ interface dataItem {
   price: number;
   available: number;
   image: string;
-  description: string;
   category: string;
 }
 interface tableState {
@@ -91,12 +90,4 @@ export const tableDataSelector = createSelector(
     }
   },
 );
-// export const tableDataSelector = () => (state: any) => {
-//   return {
-//     data: state.tableCrud.data,
-//     pagination: state.tableCrud.pagination,
-//     isLoading: state.tableCrud.isLoading,
-//   };
-// };
-
 export default tableCrudSlice.reducer;

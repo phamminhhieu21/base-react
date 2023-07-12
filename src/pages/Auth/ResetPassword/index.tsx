@@ -4,7 +4,7 @@ import { resetPasswordAction } from 'store/reducers/auth.reducer'
 import {Form, Input, Button, Modal} from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { LockOutlined } from '@ant-design/icons'
-import { isTokenAuthExpired } from 'utils/checkExpireToken'
+import { isTokenExpired } from 'utils/checkExpireToken'
 const ResetPassword = () => {
   const dispatch : any = useDispatch()
   const isLoading = useSelector((state : any) => state.auth.isLoading)
@@ -13,7 +13,7 @@ const ResetPassword = () => {
     dispatch(resetPasswordAction({ token , newPassword : values.password}))
   }
   useEffect(() => {
-    if (isTokenAuthExpired(token)) {
+    if (isTokenExpired(token)) {
       Modal.error({
         title: 'Token Expired',
         content: 'Token is expired. Please try again.',

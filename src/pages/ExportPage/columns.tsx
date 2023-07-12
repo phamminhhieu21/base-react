@@ -1,6 +1,8 @@
 import { Status } from 'components/common/StatusTag';
+import { handleFilterColumn } from 'utils/table';
 
-export default () => {
+export default (dataSource : any ) => {
+
   return [
     {
       title: 'Id',
@@ -13,24 +15,22 @@ export default () => {
       dataIndex: 'title',
       key: 2,
       editable: true,
+      filters : handleFilterColumn(dataSource, 'title'),
+      onFilter : (value: string, record : any) => record.title.includes(value)
     },
     {
       title: 'Price',
       dataIndex: 'price',
       key: 3,
       editable: true,
+      sorter: (a: any, b: any) => a.price - b.price,
     },
     {
       title: 'Available',
       dataIndex: 'available',
       key: 4,
       editable: true,
-    },
-    {
-      title: 'Description',
-      dataIndex: 'description',
-      key: 5,
-      editable: true,
+      filters : handleFilterColumn(dataSource, 'available'),
     },
     {
       title: 'Category',

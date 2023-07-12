@@ -20,10 +20,12 @@ const TableComponent = ({
   onChange,
   isTableEdit = false,
   pagination = false,
+  showSizePagination = false,
+  isShowTwoPaging = false,
   ...rest
 }: any) => {
   const [form] = BaseForm.useForm();
-  const [editingKey, setEditingKey] = useState<string | undefined>('');
+  const [editingKey, setEditingKey] = useState<number | undefined>(0);
   const isEditing = (record: ITableCell) => record.id === editingKey;
   const { t } = useTranslation();
   const edit = (record: any) => {
@@ -60,9 +62,9 @@ const TableComponent = ({
   //   });
   // };
   const cancel = () => {
-    setEditingKey('');
+    setEditingKey(0);
   };
-  const mergedColumns = columns()
+  const mergedColumns = columns(dataSource)
     .map((col: any) => {
       if (col.dataIndex !== 'actions') {
         return col;
@@ -87,7 +89,7 @@ const TableComponent = ({
                 <>
                   <BaseButton
                     type="ghost"
-                    disabled={editingKey !== ''}
+                    disabled={editingKey !== 0}
                     onClick={() => edit(record)}
                   >
                     {t('common.edit')}
@@ -121,8 +123,18 @@ const TableComponent = ({
         }),
       };
     });
+
   return (
     <TableWrapped>
+      {pagination && isShowTwoPaging && (
+        <BasePagination
+          current={page}
+          pageSize={limit}
+          total={total}
+          onChange={(current, size) => onChange({ current, pageSize: size })}
+          showSizeChanger={showSizePagination}
+        />
+      )}
       {isTableEdit ? (
         <BaseForm form={form} component={false}>
           <BaseTable
@@ -157,8 +169,8 @@ const TableComponent = ({
           current={page}
           pageSize={limit}
           total={total}
-          onChange={onChange}
-          showSizeChanger={false}
+          onChange={(current, size) => onChange({ current, pageSize: size })}
+          showSizeChanger={showSizePagination}
         />
       )}
     </TableWrapped>

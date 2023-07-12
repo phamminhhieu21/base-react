@@ -1,10 +1,9 @@
 export interface ITableCell {
-  id: string;
+  id: number;
   title : string;
   price : number;
   available : number;
   image : string;
-  description : string;
   category : string;
 }
 
